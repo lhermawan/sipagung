@@ -4,11 +4,13 @@
                 <div class="header-row">
                     <div class="header-column">
                         <div class="header-row">
-                            <div class="header-logo">
+                            <div class="header-logo flex items-center">
                                 <a href="{{ URL::to('/') }}">
                                     <img alt="Porto" width="40" height="50" data-sticky-width="40" data-sticky-height="50" src="{{ URL::to('icon/logo_cms.png') }}">
                                 </a>
-
+<p class="ml-2 text-xl text-gray-800 font-medium">SI<b>PAGUNG</b></p><div class="flex items-center">
+                    
+                </div>
                             </div>
                         </div>
                     </div>

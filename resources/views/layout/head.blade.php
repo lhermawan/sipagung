@@ -6,7 +6,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-		<title>{{ $pegawai["nama_skpd"] }}</title>
+		<title>Sistem Informasi Desa Payungagung</title>
 
 		<meta name="keywords" content="WEBSITE DESA" />
 		<meta name="description" content="WEBSITE DESA">
