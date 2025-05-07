@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers\showcase\demografi;
 
-use App\Models\Penduduk;
 use App\Http\Controllers\Controller;
-use App\Models\Pekerjaan;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Exception;
 use PDF;
 use GuzzleHttp\Client;
 use App\Models\Visitors;
-
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
 
 class SCPekerjaanController extends Controller
 {
+
 
 
     function __construct() {
@@ -58,18 +55,18 @@ class SCPekerjaanController extends Controller
 
         $arry = collect(json_decode($encodedLabel));
 
-$currentPage = LengthAwarePaginator::resolveCurrentPage();
-$perPage = 10; // jumlah data per halaman
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $perPage = 10; // jumlah data per halaman
 
-$currentItems = $arry->slice(($currentPage - 1) * $perPage, $perPage)->values();
+        $currentItems = $arry->slice(($currentPage - 1) * $perPage, $perPage)->values();
 
-$data1 = new LengthAwarePaginator(
-    $currentItems,
-    $arry->count(),
-    $perPage,
-    $currentPage,
-    ['path' => request()->url(), 'query' => request()->query()]
-);
+        $data1 = new LengthAwarePaginator(
+            $currentItems,
+            $arry->count(),
+            $perPage,
+            $currentPage,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
         // dd($data1);
         $data['chart_data'] = json_encode($data);
         $halaman = 'data_pekerjaan';

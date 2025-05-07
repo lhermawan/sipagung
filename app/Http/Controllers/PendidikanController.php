@@ -2,58 +2,77 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Penduduk;
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
-use App\Models\Visitors;
-use App\Traits\PaginationTraits;
+use RealRashid\SweetAlert\Facades\Alert;
+use Exception;
+use PDF;
 
 class PendidikanController extends Controller
 {
-    use PaginationTraits;
-
-    public function __construct()
+    public function index()
     {
-        $this->secret_key = env('SECRET_KEY');
-        $this->id_desa = env('ID_DESA');
-        $this->p_host = env('P_HOST');
-        $this->kd_desa = env('K_P_DESA');
-    }
+        $user = auth()->user();
 
-    public function index(Request $request)
-    {
-        $url = '/summary/pendidikan?secret_key=' . $this->secret_key . '&kode_desa=' . $this->kd_desa;
-        $host = $this->p_host . $url;
-
-        $client = new Client(['verify' => false]);
-
-        try {
-            $response = $client->request('GET', $host);
-        } catch (\Exception $e) {
-            $response = $client->request('GET', $host); // fallback (opsional)
+        if ($user->level == 'Admin') {
+            $penduduk = Penduduk::orderBy('nik', 'asc')->get();
+        } else {
+            $penduduk = Penduduk::where('dusun', $user->level)->orderBy('nik', 'asc')->get();
         }
 
-        $body = $response->getBody()->getContents();
-        $pendidikan = json_decode($body);
+        $pendidikanCategories = [
+            'Tidak/Belum Sekolah',
+            'Tidak Tamat SD/Sederajat',
+            'Tamat SD/Sederajat',
+            'SLTP/Sederajat',
+            'SLTA/Sederajat',
+            'Akademi/Diploma III/S. Muda',
+            'Diploma I/II',
+            'Diploma IV/Strata I',
+            'Strata II',
+            'Strata III',
+            'Pendidikan Non-Formal',
+            'Pendidikan Khusus'
+        ];
 
-        $encodedSku = json_encode($pendidikan);
-        $data['s_pendidikan'] = $pendidikan;
+        $pendidikanData = [];
 
-        $collection = collect($pendidikan);
-        $data1 = $this->paginate($collection);
-        $data1->withPath('');
+        foreach ($pendidikanCategories as $pendidikan) {
+            $total = $penduduk->where('pendidikan', $pendidikan)->count();
+            $laki_laki = $penduduk->where('pendidikan', $pendidikan)->where('jenis_kelamin', 'Laki-laki')->count();
+            $perempuan = $penduduk->where('pendidikan', $pendidikan)->where('jenis_kelamin', 'Perempuan')->count();
 
-        $halaman = 'data_pendidikan';
+            $jumlahPercent = $total ? ($total / $penduduk->count()) * 100 : 0;
+            $lakiLakiPercent = $total ? ($laki_laki / $total) * 100 : 0;
+            $perempuanPercent = $total ? ($perempuan / $total) * 100 : 0;
 
-        $visitors = Visitors::firstOrCreate(
-            ['id_desa_skpd' => $this->id_desa],
-            ['jumlah' => 0]
-        );
-
-        if (session('session') !== true) {
-            session(['session' => true]);
-            $visitors->increment('jumlah');
+            $pendidikanData[] = [
+                'pendidikan' => $pendidikan,
+                'jumlah_n' => $total,
+                'jumlah_percent' => number_format($jumlahPercent, 2),
+                'laki_laki_n' => $laki_laki,
+                'laki_laki_percent' => number_format($lakiLakiPercent, 2),
+                'perempuan_n' => $perempuan,
+                'perempuan_percent' => number_format($perempuanPercent, 2),
+            ];
         }
 
-        return view('demografi.pendidikan.pendidikan', $data, compact('encodedSku', 'pendidikan', 'halaman', 'visitors', 'data1'));
+        $total_jumlah_n = array_sum(array_column($pendidikanData, 'jumlah_n'));
+        $total_jumlah_percent = $total_jumlah_n ? number_format(($total_jumlah_n / $penduduk->count()) * 100, 2) : 0;
+        $total_laki_laki_n = array_sum(array_column($pendidikanData, 'laki_laki_n'));
+        $total_laki_laki_percent = $total_jumlah_n ? number_format(($total_laki_laki_n / $total_jumlah_n) * 100, 2) : 0;
+        $total_perempuan_n = array_sum(array_column($pendidikanData, 'perempuan_n'));
+        $total_perempuan_percent = $total_jumlah_n ? number_format(($total_perempuan_n / $total_jumlah_n) * 100, 2) : 0;
+
+        return view('demografi.pendidikan.pendidikan', [
+            'penduduk' => $penduduk,
+            'pendidikanData' => $pendidikanData,
+            'total_jumlah_n' => $total_jumlah_n,
+            'total_jumlah_percent' => $total_jumlah_percent,
+            'total_laki_laki_n' => $total_laki_laki_n,
+            'total_laki_laki_percent' => $total_laki_laki_percent,
+            'total_perempuan_n' => $total_perempuan_n,
+            'total_perempuan_percent' => $total_perempuan_percent,
+        ]);
     }
 }

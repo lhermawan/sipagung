@@ -7,9 +7,9 @@ use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
 use Exception;
 use PDF;
+use Illuminate\Support\Facades\Http;
 use App\Models\Visitors;
 use Illuminate\Http\Client\Response;
-use Illuminate\Support\Facades\Http;
 use App\Models\Header;
 class AparatController extends Controller
 {
@@ -44,19 +44,19 @@ class AparatController extends Controller
         $url2='/api/ciamis/siskedes/';
         $host2=$this->e_host.$url2;
 
-
+        $link = $this->e_host;
         $r_siskedes = Http::withHeaders([
             'C-KEY' => $this->api_key
         ])->GET($host2, [
             'kd_desa' => $this->kd_desa,
         ]);
-        $link = $this->e_host;
+
         $dt_desa = json_decode($r_siskedes->body(), true);
         $data['datadesa'] = $dt_desa;
         $halaman = 'aparatur_desa';
 //        $header = Header::all();
         $header = Header::where('id_desa_skpd', $this->id_desa)->where('status', 'Aktif')->orderBy('created_at', 'DESC')->limit(3)->get();
-        return view('showcase.profile.aparat', $data, compact('header', 'data', 'halaman', 'link'));
+        return view('showcase.profile.aparat',$data, compact('header','data', 'halaman','link'));
 
 
     }

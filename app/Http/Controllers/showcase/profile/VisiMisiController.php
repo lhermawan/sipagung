@@ -8,9 +8,10 @@ use App\Models\{VisiMisi};
 use RealRashid\SweetAlert\Facades\Alert;
 use Exception;
 use PDF;
+use Illuminate\Support\Facades\Http;
+use Session;
 use App\Models\Header;
 use App\Models\Visitors;
-use Illuminate\Support\Facades\Http;
 
 class VisiMisiController extends Controller
 {
@@ -38,7 +39,6 @@ class VisiMisiController extends Controller
         ]);
 
         $a = json_decode($response->body(), true);
-        // dd($a);
 //        $data1=
         $data['visi'] =$a['data']['visi'];
         $data['misi'] = $a['data']['misi'];
@@ -65,7 +65,10 @@ if($visitors) {
 
 }
 
-return view('showcase.profile.visi-misi',$data, compact('visitors', 'header'));
-}
+        return view('showcase.profile.visi-misi',$data, compact('visitors', 'header'));
+
+
+
+    }
 
 }

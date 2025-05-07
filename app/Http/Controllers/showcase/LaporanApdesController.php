@@ -3,14 +3,10 @@
 namespace App\Http\Controllers\showcase;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\Controller;
-use Carbon\Carbon;
-use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Client;
-use App\Models\Visitors;
-use Illuminate\Http\Client\Response;
+use Illuminate\Support\Facades\Http;
 use App\Models\Header;
+use App\Models\Visitors;
 
 class LaporanApdesController extends Controller
 {

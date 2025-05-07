@@ -4,8 +4,11 @@ namespace App\Http\Controllers\showcase\profile;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\{Sejarah};
+use RealRashid\SweetAlert\Facades\Alert;
+use Exception;
+use PDF;
 
-use App\Models\Sejarah;
 use App\Models\Visitors;
 
 class SejarahController extends Controller

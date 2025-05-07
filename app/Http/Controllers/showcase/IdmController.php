@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\showcase;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
@@ -64,7 +64,7 @@ class IdmController extends Controller
 
         $identitas=$datamap->mapData->IDENTITAS;
 
-        $halaman='showcase.idm';
+        $halaman='idm';
         $visitors = Visitors::where('id_desa_skpd', $this->id_desa)->first();
 
 if($visitors) {

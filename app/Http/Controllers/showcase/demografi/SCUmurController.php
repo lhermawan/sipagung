@@ -45,12 +45,8 @@ class SCUmurController extends Controller
     $umur = $data['s_umur'];
     $encodedSku = json_encode($umur);
     // dd($umur);
-    $umur = collect($umur)->map(function($item) {
-        $item->y = (int) str_replace('.', '', $item->y); // konversi '2.433' ke 2433
-        return $item;
-    })->all();
     // Calculate the totalJumlah (sum of all 'jumlah' fields)
-    $totalJumlah = collect($umur)->sum('y');
+    $totalJumlah = collect($umur)->sum('jumlah');
 
     // Paginasi
     $encodedLabel = json_encode($umur);
