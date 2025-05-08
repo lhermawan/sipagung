@@ -125,7 +125,12 @@
         --}}
     </div>
 </div>
-
+@php
+    $maxValue = max(
+        abs(min($maleData)),
+        max($femaleData)
+    );
+@endphp
 @endsection
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
@@ -133,78 +138,93 @@
     console.log("Male:", @json($maleData));
 console.log("Female:", @json($femaleData));
 console.log("Labels:", @json($labels));
-    const options = {
+const options = {
 
-        chart: {
-            type: 'bar',
-            height: 500,
-            stacked: true,
-            toolbar: { show: false },
-        },
-        plotOptions: {
-            bar: {
-                horizontal: true,
-                barHeight: '60%',
-            }
-        },
-        colors: ['#3b82f6', '#ec4899'],
-        series: [{
-            name: 'Laki-laki',
-            data: @json($maleData),
-        }, {
-            name: 'Perempuan',
-            data: @json($femaleData),
-        }],
-        xaxis: {
-            categories: @json($labels),
-            title: {
-                text: 'Jumlah Penduduk',
-                style: {
-                    fontSize: '14px',
-                    fontWeight: 600,
-                }
-            },
-            labels: {
-                formatter: function(val) {
-                    return Math.abs(val);
-                }
-            }
-        },
-        yaxis: {
-            title: {
-                text: 'Kelompok Usia',
-                style: {
-                    fontSize: '14px',
-                    fontWeight: 600,
-                }
-            }
-        },
-        tooltip: {
+chart: {
+    type: 'bar',
+    height: 500,
+    stacked: true,
+    toolbar: { show: false },
+    // ✅ Tambahkan judul di sini
+    title: {
+        text: 'Piramida Penduduk Berdasarkan Jenis Kelamin',
+        align: 'center',
+        style: {
+            fontSize: '18px',
+            fontWeight: 'bold',
+            color: '#333'
+        }
+    }
+},
+plotOptions: {
+    bar: {
+        horizontal: true,
+        barHeight: '60%',
+    }
+},
+colors: ['#3b82f6', '#ec4899'],
+series: [{
+    name: 'Laki-laki',
+    data: @json($maleData),
+}, {
+    name: 'Perempuan',
+    data: @json($femaleData),
+}],
+xaxis: {
+    categories: @json($labels),
+    min: -{{ $maxValue }},
+    max: {{ $maxValue }},
+    title: {
+        text: '',
+        offsetY: 15,
+        offsetX: 0,
+        style: {
+            fontSize: '14px',
+            fontWeight: 600,
+            color: '#333',
+        }
+    },
+    labels: {
+        formatter: function(val) {
+            return Math.abs(val);
+        }
+    }
+},
+yaxis: {
+    title: {
+        text: 'Kelompok Usia',
+        style: {
+            fontSize: '14px',
+            fontWeight: 600,
+        }
+    }
+},
+tooltip: {
     shared: true,
-    intersect: false, // tambahkan baris ini
+    intersect: false,
     y: {
         formatter: function(val) {
             return Math.abs(val) + " orang";
         }
     }
 },
-        legend: {
-            position: 'bottom'
-        },
-        dataLabels: {
-            enabled: false
-        },
-        responsive: [{
-            breakpoint: 640,
-            options: {
-                chart: { height: 500 },
-                plotOptions: { bar: { barHeight: '50%' } }
-            }
-        }]
+legend: {
+    position: 'bottom'
+},
+dataLabels: {
+    enabled: false
+},
+responsive: [{
+    breakpoint: 640,
+    options: {
+        chart: { height: 500 },
+        plotOptions: { bar: { barHeight: '50%' } }
+    }
+}]
 
-    };
+};
 
-    const chart = new ApexCharts(document.querySelector("#pyramidChart"), options);
-    chart.render();
+const chart = new ApexCharts(document.querySelector("#pyramidChart"), options);
+chart.render();
 </script>
 @endsection
