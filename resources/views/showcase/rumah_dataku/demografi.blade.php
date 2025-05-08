@@ -1,192 +1,125 @@
 @extends('navbar-tailwind.navbar')
 @section('title', 'Berita Desa')
 @section('content')
-    <div class="px-10 md:px-20 md:mt-7 md:mb-7">
-        <div class="flex flex-col gap-7">
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-7">
-                <div class="bg-white rounded-xl shadow-md border-t-4 border-primary p-5">
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-col space-y-1">
-                            <p class=" font-dmsans text-primary text-xs font-semibold">JUMLAH RW/DUSUN</p>
-                            <p class="text-xl font-dmsans font-bold text-gray-600">{{ $demografi->j_rw }}</p>
-                        </div>
-                        <i class="mdi mdi-navigation-variant  text-5xl md:py-2 text-slate-200"></i>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl shadow-md border-t-4 border-secondary p-5">
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-col space-y-1">
-                            <p class=" font-dmsans text-secondary text-xs font-semibold">JUMLAH RT</p>
-                            <p class="text-xl font-dmsans font-bold text-gray-600">{{ $demografi->j_rt }}</p>
-                        </div>
-                        <i class="mdi mdi-sign-direction  text-5xl md:py-2 text-slate-200"></i>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl shadow-md border-t-4 border-purple-700 p-5">
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-col space-y-1">
-                            <p class=" font-dmsans text-purple-700 text-xs font-semibold">LUAS WILAYAH</p>
-                            <p class="text-xl font-dmsans font-bold text-gray-600">{{ $demografi->luas_wilayah }}
-                                km<sup>2</sup></p>
-                        </div>
-                        <i class="mdi mdi-earth hidden md:block text-5xl md:py-2 text-slate-200"></i>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl shadow-md border-t-4 border-cyan-400 p-5">
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-col space-y-1">
-                            <p class=" font-dmsans text-cyan-400 text-xs font-semibold">KETINGGIAN WILAYAH</p>
-                            <p class="text-xl font-dmsans font-bold text-gray-600">{{ $demografi->ketinggian_wilayah }}
-                                mdpl</p>
-                        </div>
-                        <i class="mdi mdi-slope-uphill hidden md:block text-5xl md:py-2 text-slate-200"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-7">
-                <div class="bg-white rounded-xl shadow-md border-t-4 border-primary p-5">
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-col space-y-1">
-                            <p class=" font-dmsans text-primary text-xs font-semibold">JUMLAH KK</p>
-                            <p class="text-xl font-dmsans font-bold text-gray-600">
-                                {{ number_format($demografi->j_kk, 0, ',', '.') }}</p>
-
-                            </p>
-                        </div>
-                        <i class="mdi mdi-account-tie  text-5xl md:py-2 text-slate-200"></i>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl shadow-md border-t-4 border-cyan-400 p-5">
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-col space-y-1">
-                            <p class=" font-dmsans text-cyan-400 text-xs font-semibold">JUMLAH PENDUDUK</p>
-                            <p class="text-xl font-dmsans font-bold text-gray-600">
-                                {{ number_format($demografi->j_penduduk, 0, ',', '.') }}</p>
-                            </p>
-                        </div>
-                        <i class="mdi mdi-account-group  text-5xl md:py-2 text-slate-200"></i>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl shadow-md border-t-4 border-purple-700 p-5">
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-col space-y-1">
-                            <p class=" font-dmsans text-purple-700 text-xs font-semibold">PENDUDUK LAKI-LAKI</p>
-                            <p class="text-xl font-dmsans font-bold text-gray-600">
-                                {{ number_format($demografi->j_penduduk_laki, 0, ',', '.') }}</p>
-                            </p>
-                        </div>
-                        <i class="mdi mdi-face-man  text-5xl md:py-2 text-slate-200"></i>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl shadow-md border-t-4 border-secondary p-5">
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-col space-y-1">
-                            <p class=" font-dmsans text-secondary text-xs font-semibold">PENDUDUK PEREMPUAN</p>
-                            <p class="text-xl font-dmsans font-bold text-gray-600">
-                                {{ number_format($demografi->j_penduduk_perempuan, 0, ',', '.') }}</p>
-                            </p>
-                        </div>
-                        <i class="mdi mdi-face-woman  text-5xl md:py-2 text-slate-200"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-7">
-                <!-- Card 1 -->
-                <div class="bg-white rounded-xl shadow-md border-t-4 border-primary p-5 col-span-1">
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-col space-y-1">
-                            <p class="font-dmsans text-primary text-xs font-semibold">JUMLAH WANITA KAWIN</p>
-                            <p class="text-xl font-dmsans font-bold text-gray-600">{{ $demografi->j_wanita_kawin }}</p>
-                        </div>
-                        <i class="mdi mdi-account-tie-woman text-5xl md:py-2 text-slate-200"></i>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="bg-white rounded-xl shadow-md border-t-4 border-secondary p-5 col-span-1">
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-col space-y-1">
-                            <p class="font-dmsans text-secondary text-xs font-semibold">JUMLAH PUS HAMIL</p>
-                            <p class="text-xl font-dmsans font-bold text-gray-600">{{ $demografi->j_pus_hamil }}</p>
-                        </div>
-                        <i class="mdi mdi-human-pregnant text-5xl md:py-2 text-slate-200"></i>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="bg-white rounded-xl shadow-md border-t-4 border-purple-700 p-5 col-span-2 md:col-span-1">
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-col space-y-1">
-                            <p class="font-dmsans text-purple-700 text-xs font-semibold">JUMLAH PUS PESERTA KB MODERN
-                            </p>
-                            <p class="text-xl font-dmsans font-bold text-gray-600">{{ $demografi->j_pus_kb_modern }}
-                            </p>
-                        </div>
-                        <i class="mdi mdi-shield-check text-5xl md:py-2 text-slate-200"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-7">
-                <div class="bg-white rounded-xl shadow-md border-t-4 border-primary p-5">
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-col space-y-1">
-                            <p class=" font-dmsans text-primary text-xs font-semibold">JUMLAH IKUT BKB</p>
-                            <p class="text-xl font-dmsans font-bold text-gray-600">{{ $demografi->j_bkb }}</p>
-                        </div>
-                        <i class="mdi mdi-baby  text-5xl md:py-2 text-slate-200"></i>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl shadow-md border-t-4 border-secondary p-5">
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-col space-y-1">
-                            <p class=" font-dmsans text-secondary text-xs font-semibold">JUMLAH IKUT BKR</p>
-                            <p class="text-xl font-dmsans font-bold text-gray-600">{{ $demografi->j_bkr }}</p>
-                        </div>
-                        <i class="mdi mdi-human-male-female  text-5xl md:py-2 text-slate-200"></i>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl shadow-md border-t-4 border-purple-700 p-5">
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-col space-y-1">
-                            <p class=" font-dmsans text-purple-700 text-xs font-semibold">JUMLAH IKUT BKL</p>
-                            <p class="text-xl font-dmsans font-bold text-gray-600">{{ $demografi->j_bkl }}</p>
-                        </div>
-                        <i class="mdi mdi-human-cane text-5xl text-slate-200"></i>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl shadow-md border-t-4 border-cyan-400 p-5">
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-col space-y-1">
-                            <p class=" font-dmsans text-cyan-400 text-xs font-semibold">JUMLAH IKUT UPPKS</p>
-                            <p class="text-xl font-dmsans font-bold text-gray-600">{{ $demografi->j_uppks }}</p>
-                        </div>
-                        <i class="mdi mdi-hand-coin text-5xl text-slate-200"></i>
-                    </div>
-                </div>
-            </div>
+<div class="flex flex-col gap-6 md:px-20 px-5 mt-32">
+    <div class="flex flex-col gap-8">
 
 
+        {{-- Stat Cards Section 1 --}}
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            @php
+                $stats1 = [
+                    ['label' => 'JUMLAH RW/DUSUN', 'value' => $demografi->j_rw, 'color' => 'primary', 'icon' => 'mdi-navigation-variant'],
+                    ['label' => 'JUMLAH RT', 'value' => $demografi->j_rt, 'color' => 'secondary', 'icon' => 'mdi-sign-direction'],
+                    ['label' => 'LUAS WILAYAH', 'value' => $demografi->luas_wilayah . ' km²', 'color' => 'purple-700', 'icon' => 'mdi-earth'],
+                    ['label' => 'KETINGGIAN WILAYAH', 'value' => $demografi->ketinggian_wilayah . ' mdpl', 'color' => 'cyan-400', 'icon' => 'mdi-slope-uphill'],
+                ];
+            @endphp
 
-            {{-- <div class="grid grid-cols-2 gap-7">
-                <x-chart.gender />
-                <x-chart.kk-individu />
-            </div>
-            <x-chart.pendidikan-usia />
-            <div class="grid grid-cols-2 gap-7">
-                <x-chart.jaminan-kesehatan />
-                <x-chart.akta-lahir />
-            </div>
-            <div class="grid grid-cols-2 gap-7">
-                <x-chart.akta-nikah />
-                <x-chart.rumah-layak-huni />
-            </div>
-            <div class="grid grid-cols-2 gap-7">
-                <x-chart.usaha-ekonomi />
-                <x-chart.resiko-stunting />
-            </div> --}}
+            @foreach ($stats1 as $stat)
+                <div class="bg-white rounded-xl shadow-md border-t-4 border-{{ $stat['color'] }} p-5">
+                    <div class="flex justify-between items-center">
+                        <div class="space-y-1">
+                            <p class="font-dmsans text-{{ $stat['color'] }} text-xs font-semibold">{{ $stat['label'] }}</p>
+                            <p class="text-xl font-dmsans font-bold text-gray-600">{{ $stat['value'] }}</p>
+                        </div>
+                        <i class="mdi {{ $stat['icon'] }} text-5xl text-slate-200 hidden md:block"></i>
+                    </div>
+                </div>
+            @endforeach
         </div>
+
+        {{-- Stat Cards Section 2 --}}
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            @php
+                $stats2 = [
+                    ['label' => 'JUMLAH KK', 'value' => number_format($demografi->j_kk, 0, ',', '.'), 'color' => 'primary', 'icon' => 'mdi-account-tie'],
+                    ['label' => 'JUMLAH PENDUDUK', 'value' => number_format($demografi->j_penduduk, 0, ',', '.'), 'color' => 'cyan-400', 'icon' => 'mdi-account-group'],
+                    ['label' => 'PENDUDUK LAKI-LAKI', 'value' => number_format($demografi->j_penduduk_laki, 0, ',', '.'), 'color' => 'purple-700', 'icon' => 'mdi-face-man'],
+                    ['label' => 'PENDUDUK PEREMPUAN', 'value' => number_format($demografi->j_penduduk_perempuan, 0, ',', '.'), 'color' => 'secondary', 'icon' => 'mdi-face-woman'],
+                ];
+            @endphp
+
+            @foreach ($stats2 as $stat)
+                <div class="bg-white rounded-xl shadow-md border-t-4 border-{{ $stat['color'] }} p-5">
+                    <div class="flex justify-between items-center">
+                        <div class="space-y-1">
+                            <p class="font-dmsans text-{{ $stat['color'] }} text-xs font-semibold">{{ $stat['label'] }}</p>
+                            <p class="text-xl font-dmsans font-bold text-gray-600">{{ $stat['value'] }}</p>
+                        </div>
+                        <i class="mdi {{ $stat['icon'] }} text-5xl text-slate-200 hidden md:block"></i>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        {{-- Stat Cards Section 3 --}}
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+            @php
+                $stats3 = [
+                    ['label' => 'JUMLAH WANITA KAWIN', 'value' => $demografi->j_wanita_kawin, 'color' => 'primary', 'icon' => 'mdi-account-tie-woman'],
+                    ['label' => 'JUMLAH PUS HAMIL', 'value' => $demografi->j_pus_hamil, 'color' => 'secondary', 'icon' => 'mdi-human-pregnant'],
+                    ['label' => 'JUMLAH PUS PESERTA KB MODERN', 'value' => $demografi->j_pus_kb_modern, 'color' => 'purple-700', 'icon' => 'mdi-shield-check'],
+                ];
+            @endphp
+
+            @foreach ($stats3 as $stat)
+                <div class="bg-white rounded-xl shadow-md border-t-4 border-{{ $stat['color'] }} p-5 col-span-2 md:col-span-1">
+                    <div class="flex justify-between items-center">
+                        <div class="space-y-1">
+                            <p class="font-dmsans text-{{ $stat['color'] }} text-xs font-semibold">{{ $stat['label'] }}</p>
+                            <p class="text-xl font-dmsans font-bold text-gray-600">{{ $stat['value'] }}</p>
+                        </div>
+                        <i class="mdi {{ $stat['icon'] }} text-5xl text-slate-200 hidden md:block"></i>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        {{-- Stat Cards Section 4 --}}
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            @php
+                $stats4 = [
+                    ['label' => 'JUMLAH IKUT BKB', 'value' => $demografi->j_bkb, 'color' => 'primary', 'icon' => 'mdi-baby'],
+                    ['label' => 'JUMLAH IKUT BKR', 'value' => $demografi->j_bkr, 'color' => 'secondary', 'icon' => 'mdi-human-male-female'],
+                    ['label' => 'JUMLAH IKUT BKL', 'value' => $demografi->j_bkl, 'color' => 'purple-700', 'icon' => 'mdi-human-cane'],
+                    ['label' => 'JUMLAH IKUT UPPKS', 'value' => $demografi->j_uppks, 'color' => 'cyan-400', 'icon' => 'mdi-hand-coin'],
+                ];
+            @endphp
+
+            @foreach ($stats4 as $stat)
+                <div class="bg-white rounded-xl shadow-md border-t-4 border-{{ $stat['color'] }} p-5">
+                    <div class="flex justify-between items-center">
+                        <div class="space-y-1">
+                            <p class="font-dmsans text-{{ $stat['color'] }} text-xs font-semibold">{{ $stat['label'] }}</p>
+                            <p class="text-xl font-dmsans font-bold text-gray-600">{{ $stat['value'] }}</p>
+                        </div>
+                        <i class="mdi {{ $stat['icon'] }} text-5xl text-slate-200 hidden md:block"></i>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        {{-- Future Charts (commented for now) --}}
+        {{--
+        <div class="grid grid-cols-2 gap-6">
+            <x-chart.gender />
+            <x-chart.kk-individu />
+        </div>
+        <x-chart.pendidikan-usia />
+        <div class="grid grid-cols-2 gap-6">
+            <x-chart.jaminan-kesehatan />
+            <x-chart.akta-lahir />
+        </div>
+        <div class="grid grid-cols-2 gap-6">
+            <x-chart.akta-nikah />
+            <x-chart.rumah-layak-huni />
+        </div>
+        <div class="grid grid-cols-2 gap-6">
+            <x-chart.usaha-ekonomi />
+            <x-chart.resiko-stunting />
+        </div>
+        --}}
     </div>
-
-
+</div>
+@endsection
