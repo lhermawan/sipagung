@@ -1,5 +1,5 @@
 @extends('navbar-tailwind.navbar')
-@section('title', 'Berita Desa')
+@section('title', 'Demografi Desa')
 @section('content')
 <div class="flex flex-col gap-6 md:px-20 px-5 mt-32">
     <div class="flex flex-col gap-8">

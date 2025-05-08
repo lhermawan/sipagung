@@ -1,5 +1,7 @@
-<x-guest-layout>
-    <div class="px-10 md:px-20 md:mt-7 md:mb-7">
+@extends('navbar-tailwind.navbar')
+@section('title', 'Demografi Desa')
+@section('content')
+    <div class="flex flex-col gap-6 md:px-20 px-5 mt-32">
         <div class="flex flex-col gap-7">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-7">
                 <div class="bg-white rounded-xl shadow-lg border-b-8 border-primary p-5">
@@ -329,4 +331,4 @@
             </div>
         </div>
     </div>
-    </x-app-layout>
+
