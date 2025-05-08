@@ -6,73 +6,60 @@ use App\Models\{Penduduk, Disabilitas, Sejarah, Lapakdesa, Berita};
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use GuzzleHttp\Client;
-use App\Models\Visitors;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class StartController extends Controller
 {
 
     function __construct() {
 
-        $this->secret_key =env('SECRET_KEY');
+        $this->api_key =env('API_KEY');
         $this->id_desa =env('ID_DESA');
-        $this->p_host= env('P_HOST');
-        $this->kd_desa= env('K_P_DESA');
-        $this->p_host_penduduk= env('P_HOST_PENDUDUK');
+        $this->e_host= env('E_HOST');
+        $this->kd_desa= env('K_DESA');
 
-
-
-    }
+        }
     public function index(Request $request)
-{
-    // $client = new Client(['verify' => false]);
-    // $allPenduduk = collect();
-    // $page = 1;
+    {
+        $penduduk = Penduduk::all();
 
-    // do {
-    //     $response = $client->request('GET', 'https://sasakgaluh.ciamiskab.go.id/api/desa/penduduk?secret_key='.$this->secret_key.'&kode_desa='.$this->kd_desa .'&page='. $page);
+        $berita = Berita::where('id_desa_skpd', $this->id_desa)->where('post_status', 'Publish')->orderBy('created_at', 'DESC')->limit(6)->get();
+        $kategori_1 = Berita::where('id_desa_skpd', $this->id_desa)->where('post_status', 'Publish')->where('category_id', '3')->orderBy('created_at', 'DESC')->take(1)->get();
 
-    //     $result = json_decode($response->getBody());
+        $kategori_2 = Berita::where('id_desa_skpd', $this->id_desa)->where('post_status', 'Publish')->where('category_id', '4')->orderBy('created_at', 'DESC')->take(1)->get();
+        $kategori_3 = Berita::where('id_desa_skpd', $this->id_desa)->where('post_status', 'Publish')->where('category_id', '5')->orderBy('created_at', 'DESC')->take(1)->get();
+        $berita1 = Berita::where('id_desa_skpd', $this->id_desa)->where('post_status', 'Publish')->orderBy('created_at', 'DESC')->limit(6)->get();
+        $beritaTerbaru = Berita::where('id_desa_skpd', $this->id_desa)
+                       ->where('post_status', 'Publish')
+                       ->orderBy('created_at', 'DESC')
+                       ->first();
+        // $potensi = Potensi::where('id_desa_skpd', $this->id_desa)->where('potensi_status', 'Publish')->orderBy('created_at', 'DESC')->limit(3)->get();
+        $penduduk = Penduduk::count();
+        $disabilitas = Disabilitas::count();
+        $pekerjaanCount = Penduduk::distinct('pekerjaan')->count('pekerjaan');
+        $jumlahKeluarga = Penduduk::distinct('no_kk')->count('no_kk');
+        $pekerjaanStats = Penduduk::select('pekerjaan', DB::raw('count(*) as jumlah'))
+            ->whereNotIn('pekerjaan', ['Mengurus Rumah Tangga', 'Belum/Tidak Bekerja', 'Pelajar/Mahasiswa']) // Pengecualian pekerjaan
+            ->groupBy('pekerjaan')
+            ->orderBy('jumlah', 'desc')
+            ->get();
 
-    //     if (!isset($result->data->data)) break;
+        $mostCommonJob = $pekerjaanStats->first();
+        $mostCommonJobName = $mostCommonJob ? $mostCommonJob->pekerjaan : 'Tidak Diketahui';
+        $mostCommonJobCount = $mostCommonJob ? $mostCommonJob->jumlah : 0;
 
-    //     $data = collect($result->data->data);
-    //     $allPenduduk = $allPenduduk->merge($data);
-    //     $page++;
+        $lapakdesas = Lapakdesa::all();
+        // $beritaTerbaru = Berita::orderBy('tanggal', 'desc')->first();
 
-    // } while ($result->data->next_page_url !== null);
-    $allPenduduk = Penduduk::all();
-    // Filter pekerjaan
-    $filtered = $allPenduduk->whereNotIn('pekerjaan', [
-        'Mengurus Rumah Tangga', 'Belum/Tidak Bekerja', 'Pelajar/Mahasiswa'
-    ]);
+        return view('start', [
+            'penduduk' => $penduduk,
+            'disabilitas' => $disabilitas,
+            'pekerjaanCount' => $pekerjaanCount,
+            'jumlahKeluarga' => $jumlahKeluarga,
+            'mostCommonJobName' => $mostCommonJobName,
+            'mostCommonJobCount' => $mostCommonJobCount,
+            'lapakdesas' => $lapakdesas,
+            'beritaTerbaru' => $beritaTerbaru,
 
-    // Hitung pekerjaan terbanyak
-    $mostCommonJob = $filtered->countBy('pekerjaan')->sortDesc()->take(1);
-    $mostCommonJobName = $mostCommonJob->keys()->first() ?? 'Tidak Diketahui';
-    $mostCommonJobCount = $mostCommonJob->values()->first() ?? 0;
-
-    // Data tambahan
-    $jumlahKeluarga = $allPenduduk->pluck('no_kk')->unique()->count();
-    $disabilitasCount = Disabilitas::count();
-    $beritaTerbaru = Berita::where('id_desa_skpd', $this->id_desa)
-                            ->where('post_status', 'Publish')
-                            ->orderBy('created_at', 'DESC')
-                            ->first();
-       $penduduk = $allPenduduk->count();
-    $lapakdesas = Lapakdesa::all();
-    // dd([
-    //     'jumlah_data' => $allPenduduk->count(),
-    //     'filtered_count' => $filtered->count(),
-    //     'pekerjaan_terbanyak' => $mostCommonJobName,
-    //     'jumlah_pekerja_terbanyak' => $mostCommonJobCount,
-    //     'jumlah_kepala_keluarga' => $jumlahKeluarga,
-    // ]);
-    // Kirim ke view
-    return view('start', compact(
-        'beritaTerbaru', 'disabilitasCount', 'jumlahKeluarga',
-        'mostCommonJobName', 'mostCommonJobCount', 'lapakdesas' , 'penduduk'
-    ));
-}
+        ]);
+    }
 }

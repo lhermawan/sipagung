@@ -183,12 +183,12 @@
                                 class="absolute left-0 z-50 hidden bg-white text-gray-800 py-2 mt-2 w-48 rounded-lg shadow-lg">
                                 <li class="hover:bg-gray-100 hover:text-primary
                                 ary">
-                                    <a href="https://rumahdataku.payungagung.com/demografi"
+                                    <a href="showcase/rumah_dataku/demografi"
                                         class="block px-4 py-2">Data Demografi</a>
                                 </li>
                                 <li class="hover:bg-gray-100 hover:text-primary
                                 ary">
-                                    <a href="https://rumahdataku.payungagung.com/potensi" class="block px-4 py-2">Data
+                                    <a href="showcase/rumah_dataku/potensi" class="block px-4 py-2">Data
                                         Potensi</a>
                                 </li>
                                 {{-- <hr class="border-t-[1px] border-gray-300" />

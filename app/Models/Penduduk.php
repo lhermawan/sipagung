@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Penduduk extends Model
 {
     use HasFactory;
-    protected $table = 't_penduduk';
+    protected $table = 't_penduduk_payungagung';
     protected $primaryKey = 'nik';
     public $incrementing = false;
     protected $keyType = 'string';
     public $timestamps = true;
-    protected $connection = 'mysql2';
+    
     protected $fillable = [
         'nik',
         'no_kk',
