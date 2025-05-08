@@ -4,7 +4,10 @@
 <div class="flex flex-col gap-6 md:px-20 px-5 mt-32">
     <div class="flex flex-col gap-8">
 
-
+{{-- Piramida Penduduk --}}
+<div class="bg-white rounded-2xl shadow p-6 mb-8">
+    <div id="pyramidChart"></div>
+</div>
         {{-- Stat Cards Section 1 --}}
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
             @php
@@ -122,4 +125,86 @@
         --}}
     </div>
 </div>
+
+@endsection
+@section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script>
+    console.log("Male:", @json($maleData));
+console.log("Female:", @json($femaleData));
+console.log("Labels:", @json($labels));
+    const options = {
+
+        chart: {
+            type: 'bar',
+            height: 500,
+            stacked: true,
+            toolbar: { show: false },
+        },
+        plotOptions: {
+            bar: {
+                horizontal: true,
+                barHeight: '60%',
+            }
+        },
+        colors: ['#3b82f6', '#ec4899'],
+        series: [{
+            name: 'Laki-laki',
+            data: @json($maleData),
+        }, {
+            name: 'Perempuan',
+            data: @json($femaleData),
+        }],
+        xaxis: {
+            categories: @json($labels),
+            title: {
+                text: 'Jumlah Penduduk',
+                style: {
+                    fontSize: '14px',
+                    fontWeight: 600,
+                }
+            },
+            labels: {
+                formatter: function(val) {
+                    return Math.abs(val);
+                }
+            }
+        },
+        yaxis: {
+            title: {
+                text: 'Kelompok Usia',
+                style: {
+                    fontSize: '14px',
+                    fontWeight: 600,
+                }
+            }
+        },
+        tooltip: {
+    shared: true,
+    intersect: false, // tambahkan baris ini
+    y: {
+        formatter: function(val) {
+            return Math.abs(val) + " orang";
+        }
+    }
+},
+        legend: {
+            position: 'bottom'
+        },
+        dataLabels: {
+            enabled: false
+        },
+        responsive: [{
+            breakpoint: 640,
+            options: {
+                chart: { height: 500 },
+                plotOptions: { bar: { barHeight: '50%' } }
+            }
+        }]
+
+    };
+
+    const chart = new ApexCharts(document.querySelector("#pyramidChart"), options);
+    chart.render();
+</script>
 @endsection

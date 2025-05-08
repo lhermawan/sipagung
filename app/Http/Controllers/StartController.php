@@ -21,7 +21,7 @@ class StartController extends Controller
     public function index(Request $request)
     {
         $penduduk = Penduduk::all();
-
+// dd($penduduk);
         $berita = Berita::where('id_desa_skpd', $this->id_desa)->where('post_status', 'Publish')->orderBy('created_at', 'DESC')->limit(6)->get();
         $kategori_1 = Berita::where('id_desa_skpd', $this->id_desa)->where('post_status', 'Publish')->where('category_id', '3')->orderBy('created_at', 'DESC')->take(1)->get();
 
