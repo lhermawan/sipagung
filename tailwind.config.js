@@ -7,6 +7,20 @@ export default {
         "./node_modules/flowbite/**/*.js",
         "./node_modules/preline/dist/*.js",
     ],
+    safelist: [
+        {
+          pattern: /bg-(blue|green|purple|red|indigo|orange|teal|rose)-100/,
+        },
+        {
+          pattern: /text-(blue|green|purple|red|indigo|orange|teal|rose)-600/,
+        },
+        {
+          pattern: /from-(blue|green|purple|red|indigo|orange|teal|rose)-500/,
+        },
+        {
+          pattern: /to-(blue|green|purple|red|indigo|orange|teal|rose)-700/,
+        },
+      ],
     theme: {
         fontFamily: {
             montserrat: ["Montserrat", "sans-serif"],
