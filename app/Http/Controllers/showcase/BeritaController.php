@@ -42,15 +42,131 @@ class BeritaController extends Controller
 //        return $user;
 //    }
 
-    private function authorization($token)
-    {
-        if($token==$this->api_key ){
-            $user = 1;
-        }else{
-            $user = 0;
-        }
-        return $user;
+private function authorization($token)
+{
+    if($token==$this->api_key ){
+        $user = 1;
+    }else{
+        $user = 0;
     }
+    return $user;
+}
+
+
+
+
+public function post_berita(Request $request)
+{
+    $token = Auth::user() != '' ?  Auth::user()->token : $this->secret_key;
+    $check = $this->authorization($token);
+    if ($check >0) {
+        try {
+                $data = new \App\Models\Post();
+                $data->category_id = $request["category_id"];
+                $data->title = $request["title"];
+                $data->title_slug = $request["title_slug"];
+                $data->content = $request["content"];
+                $data->post_status = $request["post_status"];
+                $data->author = $request["author"];
+                $data->date = $request["date"];
+                $data->picture = $request["picture"];
+                $data->time = $request["time"];
+                $data->hits = $request["hits"];
+                $data->id_desa_skpd = $request["id_desa_skpd"];
+
+
+                if ($data->picture && $data->picture->isValid()) {
+                    $file_name = time() . '.' . $request->picture->extension();
+                    $request->picture->move(public_path('images/foto_berita'), $file_name);
+                    $path = "images/foto_berita/$file_name";
+                    $data->picture = $path;
+                }else{
+                    return response()->json(['error' => 'true', 'message' => 'fgfgd']);
+                }
+
+                $data->save();
+                return response()->json(['error' => 'false', 'message' => 'Data berhasil ditambahkan']);
+
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'true', 'message' => $e->getMessage(), 'data' => []], 500);
+        }
+
+
+    }else{
+        return response()->json(['error' => 'true', 'message' => 'Token Tidak valid']);
+    }
+}
+public function update_berita(Request $request)
+{
+
+    $token = Auth::user() != '' ?  Auth::user()->token : $this->secret_key;
+    $check = $this->authorization($token);
+    if ($check > 0) {
+        try {
+            if ($request["picture"] && $request["picture"]->isValid()) {
+                $file_name = time() . '.' . $request->picture->extension();
+                $request->picture->move(public_path('images/foto_berita'), $file_name);
+                $path = "images/foto_berita/$file_name";
+                $picture = $path;
+                $path2 = public_path()."/".$request['old_file'];
+                File::delete($path2);
+            }else{
+                return response()->json(['error' => 'true', 'message' => 'fgfgd']);
+            }
+
+
+            $isi_berita=$request["content"];
+            $input = array(
+                'category_id' => $request->category_id,
+                'title' => $request->title,
+                'title_slug' =>$request->title_slug,
+                'content' => $isi_berita,
+                'post_status' => $request->post_status,
+                'date' =>$request->date,
+                'time' =>$request->time,
+                'picture' =>$picture
+            );
+
+            Post::where('post_id',$request["post_id"])->update($input);
+
+
+            return response()->json(['error' => 'false', 'message' => 'Data berhasil ditambahkan']);
+
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'true', 'message' => $e->getMessage(), 'data' => []], 500);
+        }
+
+
+    }else{
+        return response()->json(['error' => 'true', 'message' => 'Token Tidak valid']);
+    }
+}
+
+public function delete_berita(Request $request)
+{
+
+    $token = Auth::user() != '' ?  Auth::user()->token : $this->secret_key;
+    $check = $this->authorization($token);
+    if ($check > 0) {
+        try {
+
+            Post::where('post_id',$request["post_id"])->delete();
+            $path2 = public_path()."/".$request['picture'];
+            File::delete($path2);
+            return response()->json(['error' => 'false', 'message' => 'Data Berhasil Dihapus']);
+
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'true', 'message' => $e->getMessage(), 'data' => []], 500);
+        }
+
+
+    }else{
+        return response()->json(['error' => 'true', 'message' => 'Token Tidak valid']);
+    }
+}
     // public function index()
     // {
 

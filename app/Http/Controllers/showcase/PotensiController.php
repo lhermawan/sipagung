@@ -4,11 +4,13 @@ namespace App\Http\Controllers\showcase;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Http;
 use App\Models\Potensi;
-
 use App\Models\Visitors;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\File;
+use App\Models\PostPotensi;
 
 class PotensiController extends Controller
 {
@@ -95,6 +97,133 @@ class PotensiController extends Controller
 
         return view('showcase.potensi.detail_potensi_desa', compact('data', 'view', 'visitors', 'potensi_lainnya'));
 
+    }
+
+    private function authorization($token)
+    {
+        if($token==$this->api_key ){
+            $user = 1;
+        }else{
+            $user = 0;
+        }
+        return $user;
+    }
+
+
+
+
+    public function post_potensi(Request $request)
+    {
+        $token = Auth::user() != '' ?  Auth::user()->token : $this->secret_key;
+        $check = $this->authorization($token);
+        if ($check >0) {
+            try {
+                    $data = new \App\Models\PostPotensi();
+                    $data->category_id = $request["category_id"];
+                    $data->title = $request["title"];
+                    $data->title_slug = $request["title_slug"];
+                    $data->content = $request["content"];
+                    $data->potensi_status = $request["potensi_status"];
+                    $data->author = $request["author"];
+                    $data->date = $request["date"];
+                    $data->picture = $request["picture"];
+                    $data->time = $request["time"];
+                    $data->hits = $request["hits"];
+                    $data->id_desa_skpd = $request["id_desa_skpd"];
+
+
+                    if ($data->picture && $data->picture->isValid()) {
+                        $file_name = time() . '.' . $request->picture->extension();
+                        $request->picture->move(public_path('images/foto_potensi'), $file_name);
+                        $path = "images/foto_potensi/$file_name";
+                        $data->picture = $path;
+                    }else{
+                        return response()->json(['error' => 'true', 'message' => 'fgfgd']);
+                    }
+
+                    $data->save();
+                    return response()->json(['error' => 'false', 'message' => 'Data berhasil ditambahkan']);
+
+
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'true', 'message' => $e->getMessage(), 'data' => []], 500);
+            }
+
+
+        }else{
+            return response()->json(['error' => 'true', 'message' => 'Token Tidak valid']);
+        }
+    }
+    public function update_potensi(Request $request)
+    {
+
+        $token = Auth::user() != '' ?  Auth::user()->token : $this->secret_key;
+        $check = $this->authorization($token);
+        if ($check > 0) {
+            try {
+                if ($request["picture"] && $request["picture"]->isValid()) {
+                    $file_name = time() . '.' . $request->picture->extension();
+                    $request->picture->move(public_path('images/foto_potensi'), $file_name);
+                    $path = "images/foto_potensi/$file_name";
+                    $picture = $path;
+                    $path2 = public_path()."/".$request['old_file'];
+                    File::delete($path2);
+                }else{
+                    return response()->json(['error' => 'true', 'message' => 'fgfgd']);
+                }
+
+
+                $isi_potensi=$request["content"];
+                $input = array(
+                    'category_id' => $request->category_id,
+                    'title' => $request->title,
+                    'title_slug' =>$request->title_slug,
+                    'content' => $isi_potensi,
+                    'potensi_status' => $request->potensi_status,
+                    'date' =>$request->date,
+                    'author' =>$request->author,
+                    'time' =>$request->time,
+                    'picture' =>$picture
+                );
+
+                PostPotensi::where('potensi_id',$request["potensi_id"])->update($input);
+
+
+                return response()->json(['error' => 'false', 'message' => 'Data berhasil ditambahkan']);
+
+
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'true', 'message' => $e->getMessage(), 'data' => []], 500);
+            }
+
+
+        }else{
+            return response()->json(['error' => 'true', 'message' => 'Token Tidak valid']);
+        }
+    }
+
+    public function delete_potensi(Request $request)
+    {
+
+        $token = Auth::user() != '' ?  Auth::user()->token : $this->secret_key;
+        $check = $this->authorization($token);
+        if ($check > 0) {
+            try {
+
+                PostPotensi::where('potensi_id',$request["potensi_id"])->delete();
+                $path2 = public_path()."/".$request['picture'];
+                File::delete($path2);
+                return response()->json(['error' => 'false', 'message' => 'Data Berhasil Dihapus']);
+
+
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'true', 'message' => $e->getMessage(), 'data' => []], 500);
+            }
+
+
+        }else{
+            return response()->json(['error' => 'true', 'message' => 'Token Tidak valid']);
+        }
     }
 
 
