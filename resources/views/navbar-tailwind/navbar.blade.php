@@ -146,6 +146,10 @@
                                 ary">
                                     <a href="/showcase/lapak" class="block px-4 py-2">Lapak Desa</a>
                                 </li>
+                                <li class="hover:bg-gray-100 hover:text-primary
+                                ary">
+                                    <a href="/showcase/potensi/potensi_desa" class="block px-4 py-2">Potensi Desa</a>
+                                </li>
                             </ul>
                         </li>
                         <li class="md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out">
