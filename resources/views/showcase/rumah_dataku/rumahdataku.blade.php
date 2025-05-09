@@ -14,7 +14,7 @@
         <h1 class="text-4xl font-extrabold text-gray-800">RUMAH DATA KEPENDUDUKAN <span class="text-primary">(RUMAH DATAKU)</span></h1>
         <p class="text-sm text-gray-500 mt-2">KAMPUNG KB “MEKAR RAHAYU” <br> DESA PAYUNGAGUNG, KEC. PANUMBANGAN, KAB. CIAMIS</p>
     </div>
-    
+
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         @php
             $menus = [
@@ -29,23 +29,25 @@
             ];
         @endphp
 
-        @foreach ($menus as $menu)
-    <button id="btn-{{ $menu['id'] }}"
-        onclick="showSection('{{ $menu['id'] }}')"
-        class="relative group w-full overflow-hidden rounded-xl p-6 bg-grey border border-gray-200 shadow-md hover:shadow-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-700 hover:text-white">
+@foreach ($menus as $menu)
+<button id="btn-{{ $menu['id'] }}"
+    onclick="showSection('{{ $menu['id'] }}')"
+    class="relative group w-full overflow-hidden rounded-xl p-3 md:p-4 h-24 min-h-[6rem] bg-grey border border-gray-200 shadow-sm transition-all duration-300
+        hover:shadow-lg hover:scale-[1.03] hover:-translate-y-1
+        hover:bg-gradient-to-r hover:from-blue-500 hover:to-white hover:text-white">
 
-        <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-500 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+    <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-500 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
 
-        <div class="relative z-10 flex flex-col items-center space-y-3">
-            <div class="text-black group-hover:text-white transition duration-300">
-                <i class="mdi {{ $menu['icon'] }} text-4xl"></i>
-            </div>
-            <span class="text-base md:text-lg font-semibold">{{ $menu['label'] }}</span>
+    <div class="relative z-10 flex flex-col items-center justify-center space-y-2">
+        <div class="text-blue-600 group-hover:text-white transition duration-300">
+            <i class="mdi {{ $menu['icon'] }} text-2xl"></i>
         </div>
+        <span class="text-sm md:text-base font-medium text-center leading-snug">{{ $menu['label'] }}</span>
+    </div>
 
-        {{-- Shine effect --}}
-        <span class="absolute top-0 left-0 w-full h-full bg-white opacity-10 transform rotate-45 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-in-out"></span>
-    </button>
+    {{-- Shine effect --}}
+    <span class="absolute top-0 left-0 w-full h-full bg-white opacity-10 transform rotate-45 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-in-out"></span>
+</button>
 @endforeach
     </div>
 
@@ -65,6 +67,11 @@
     <div id="data-potensi" class="hidden">...</div>
     <div id="data-infografis" class="hidden">...</div>
 </section>
+<style>
+    .active-button i {
+        color: white !important;
+    }
+</style>
 <script>
     const sections = [
         'data-kuantitas',
@@ -78,22 +85,23 @@
     ];
 
     function showSection(id) {
-        // Sembunyikan semua section
         sections.forEach(sec => {
             document.getElementById(sec).classList.add('hidden');
+
             const btn = document.getElementById('btn-' + sec);
-            if (btn) btn.classList.remove('bg-blue-600', 'text-white');
+            if (btn) {
+                btn.classList.remove('bg-blue-600', 'text-white', 'active-button');
+            }
         });
 
-        // Tampilkan section yang dipilih
         document.getElementById(id).classList.remove('hidden');
 
-        // Tandai tombol aktif
         const activeBtn = document.getElementById('btn-' + id);
-        if (activeBtn) activeBtn.classList.add('bg-blue-600', 'text-white');
+        if (activeBtn) {
+            activeBtn.classList.add('bg-blue-600', 'text-white', 'active-button');
+        }
     }
 
-    // Hapus tampilan default
     document.addEventListener('DOMContentLoaded', () => {
         sections.forEach(sec => document.getElementById(sec).classList.add('hidden'));
     });
