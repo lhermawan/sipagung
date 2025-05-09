@@ -1,8 +1,5 @@
-@extends('navbar-tailwind.navbar')
-@section('title', 'Demografi Desa')
-@section('content')
-<div class="flex flex-col gap-6 md:px-20 px-5 mt-32">
-    <div class="flex flex-col gap-8">
+
+
 
 {{-- Piramida Penduduk --}}
 <div class="bg-white rounded-2xl shadow p-6 mb-8">
@@ -123,15 +120,14 @@
             <x-chart.resiko-stunting />
         </div>
         --}}
-    </div>
-</div>
+
 @php
     $maxValue = max(
         abs(min($maleData)),
         max($femaleData)
     );
 @endphp
-@endsection
+
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script>
