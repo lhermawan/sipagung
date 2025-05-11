@@ -53,10 +53,6 @@
         font-family: "Poppins";
         font-size: 0.75rem;
     }
-    .text-outline-white {
-    color: white;
-    -webkit-text-stroke: 1px black; /* Ganti black dengan warna outline yang kamu mau */
-  }
 </style>
 
 <body class="bg-gray-100">
@@ -78,10 +74,10 @@
                     id="navbar">
                     <ul class="flex flex-col md:flex-row gap-3 md:gap-9">
                         <li class="md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out">
-                            <a href="#" class="nav-link font-bold text-outline-white">Beranda</a>
+                            <a href="#" class="nav-link">Beranda</a>
                         </li>
                         <li class="relative">
-                            <a class="cursor-pointer nav-link font-bold text-outline-white md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out inline-flex items-center"
+                            <a class="cursor-pointer nav-link md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out inline-flex items-center"
                                 onclick="toggleDropdownProfil(event)">
                                 Profil
                                 <svg class="w-2.5 h-2.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -93,18 +89,18 @@
                             <ul id="dropdownMenuProfil"
                                 class="absolute left-0 z-50 hidden bg-white text-gray-800 py-2 mt-2 w-48 rounded-lg shadow-lg">
                                 <li class="hover:bg-gray-100 hover:text-primary">
-                                    <a href="/showcase/profile/visi-misi" class="block px-4 py-2 font-bold text-outline-white">Visi Misi Desa</a>
+                                    <a href="/showcase/profile/visi-misi" class="block px-4 py-2">Visi Misi Desa</a>
                                 </li>
                                 <li class="hover:bg-gray-100 hover:text-primary">
-                                    <a href="/showcase/profile/sejarah" class="block px-4 py-2 font-bold text-outline-white">Sejarah Desa</a>
+                                    <a href="/showcase/profile/sejarah" class="block px-4 py-2">Sejarah Desa</a>
                                 </li>
                                 <li class="hover:bg-gray-100 hover:text-primary">
-                                    <a href="/showcase/profile/aparat" class="block px-4 py-2 font-bold text-outline-white">Aparatur Desa</a>
+                                    <a href="/showcase/profile/aparat" class="block px-4 py-2">Aparatur Desa</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="relative">
-                            <a class="cursor-pointer nav-link md:hover:bg-transparent font-bold text-outline-white md:hover:text-primary transition duration-200 ease-in-out inline-flex items-center"
+                            <a class="cursor-pointer nav-link md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out inline-flex items-center"
                                 onclick="toggleDropdownDemo(event)">
                                 Demografi
                                 <svg class="w-2.5 h-2.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -119,37 +115,37 @@
                                     <a class="block px-4 py-2">Wilayah Administratif</a>
                                 </li> --}}
                                 <li class="hover:bg-gray-100 hover:text-primary">
-                                    <a href="/showcase/demografi/pendidikan" class="block px-4 py-2 font-bold text-outline-white">Pendidikan</a>
+                                    <a href="/showcase/demografi/pendidikan" class="block px-4 py-2">Pendidikan</a>
                                 </li>
                                 <li class="hover:bg-gray-100 hover:text-primary">
-                                    <a href="/showcase/demografi/pekerjaan" class="block px-4 py-2 font-bold text-outline-white">Pekerjaan</a>
+                                    <a href="/showcase/demografi/pekerjaan" class="block px-4 py-2">Pekerjaan</a>
                                 </li>
                                 <li class="hover:bg-gray-100 hover:text-primary">
-                                    <a href="/showcase/demografi/agama" class="block px-4 py-2 font-bold text-outline-white">Agama</a>
+                                    <a href="/showcase/demografi/agama" class="block px-4 py-2">Agama</a>
                                 </li>
                                 <li class="hover:bg-gray-100 hover:text-primary">
-                                    <a href="/showcase/demografi/jeniskelamin" class="block px-4 py-2 font-bold text-outline-white">Jenis
+                                    <a href="/showcase/demografi/jeniskelamin" class="block px-4 py-2">Jenis
                                         Kelamin</a>
                                 </li>
                                 <li class="hover:bg-gray-100 hover:text-primary">
-                                    <a href="/showcase/demografi/umur" class="block px-4 py-2 font-bold text-outline-white">Umur</a>
+                                    <a href="/showcase/demografi/umur" class="block px-4 py-2">Umur</a>
                                 </li>
                                 <li class="hover:bg-gray-100 hover:text-primary">
-                                    <a href="/showcase/demografi/luaswilayah" class="block px-4 py-2 font-bold text-outline-white">Luas Wilayah</a>
+                                    <a href="/showcase/demografi/luaswilayah" class="block px-4 py-2">Luas Wilayah</a>
                                 </li>
                                 <li class="hover:bg-gray-100 hover:text-primary">
-                                    <a href="/showcase/demografi/disabilitas" class="block px-4 py-2 font-bold text-outline-white">Disabilitas</a>
+                                    <a href="/showcase/demografi/disabilitas" class="block px-4 py-2">Disabilitas</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out">
-                            <a href="/showcase/idm/ {{ date('Y') }}" class="font-bold text-outline-white">IDM</a>
+                            <a href="/showcase/idm/ {{ date('Y') }}" class="">IDM</a>
                         </li>
                         <li class="md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out">
-                            <a href="/showcase/laporan_apdes" class="font-bold text-outline-white">Laporan APDES</a>
+                            <a href="/showcase/laporan_apdes" class="">Laporan APDES</a>
                         </li>
                         <li class="relative">
-                            <a class="cursor-pointer nav-link font-bold text-outline-white md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out inline-flex items-center"
+                            <a class="cursor-pointer nav-link md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out inline-flex items-center"
                                 onclick="toggleDropdownPotensi(event)">
                                 Potensi
                                 <svg class="w-2.5 h-2.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -162,23 +158,23 @@
                                 class="absolute left-0 z-50 hidden bg-white text-gray-800 py-2 mt-2 w-48 rounded-lg shadow-lg">
                                 <li class="hover:bg-gray-100 hover:text-primary
                                 ary">
-                                    <a href="/showcase/lapak" class="block px-4 py-2 font-bold text-outline-white">Lapak Desa</a>
+                                    <a href="/showcase/lapak" class="block px-4 py-2">Lapak Desa</a>
                                 </li>
                                 <li class="hover:bg-gray-100 hover:text-primary
                                 ary">
-                                    <a href="/showcase/potensi/potensi_desa" class="block px-4 py-2 font-bold text-outline-white">Potensi Desa</a>
+                                    <a href="/showcase/potensi/potensi_desa" class="block px-4 py-2">Potensi Desa</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out">
-                            <a href="/showcase/regulasi" class="font-bold text-outline-white">Regulasi</a>
+                            <a href="/showcase/regulasi" class="">Regulasi</a>
                         </li>
                         <li class="md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out">
-                            <a href="/showcase/berita" class="font-bold text-outline-white">Berita</a>
+                            <a href="/showcase/berita" class="">Berita</a>
                         </li>
 
                         <li class="relative">
-                            <a class="cursor-pointer nav-link font-bold text-outline-white md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out inline-flex items-center"
+                            <a class="cursor-pointer nav-link md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out inline-flex items-center"
                                 onclick="toggleDropdownRumahDataku(event)">
                                 RumahDataku
                                 <svg class="w-2.5 h-2.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -192,11 +188,11 @@
                                 <li class="hover:bg-gray-100 hover:text-primary
                                 ary">
                                     <a href="showcase/rumah_dataku/demografi"
-                                        class="block px-4 py-2 font-bold text-outline-white">Data Demografi</a>
+                                        class="block px-4 py-2">Data Demografi</a>
                                 </li>
                                 <li class="hover:bg-gray-100 hover:text-primary
                                 ary">
-                                    <a href="showcase/rumah_dataku/potensi font-bold text-outline-white" class="block px-4 py-2">Data
+                                    <a href="showcase/rumah_dataku/potensi" class="block px-4 py-2">Data
                                         Potensi</a>
                                 </li>
                                 {{-- <hr class="border-t-[1px] border-gray-300" />
@@ -208,7 +204,7 @@
                             </ul>
                         </li>
                         <li class="md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out">
-                            <a href="https://www.lapor.go.id/" class="font-bold text-outline-white">SP4N LAPOR</a>
+                            <a href="https://www.lapor.go.id/" class="">SP4N LAPOR</a>
                         </li>
                         {{-- <hr class="border-t-[1px] border-gray-300" />
                         <li
