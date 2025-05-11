@@ -93,5 +93,5 @@ Route::get('showcase/regulasi', [App\Http\Controllers\showcase\RegulasiControlle
 Route::get('showcase/map_desa', [App\Http\Controllers\showcase\MapController::class, 'index'])->name('map');
 Route::get('showcase/rumah_dataku/demografi', [App\Http\Controllers\GuestController::class, 'demografi']);
 Route::get('showcase/rumah_dataku/potensi', [App\Http\Controllers\GuestController::class, 'potensi']);
-Route::get('showcase/rumah_dataku/rumahdataku', [App\Http\Controllers\GuestController::class, 'index']);
+Route::get('showcase/rumah_dataku/rumahdataku', [App\Http\Controllers\GuestController::class, 'index'])->name('rumahdataku');
 Route::get('showcase/potensi/potensi_desa', [App\Http\Controllers\showcase\PotensiController::class, 'potensi']);

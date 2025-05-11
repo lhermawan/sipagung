@@ -262,7 +262,7 @@
                 </div>
             </div>
             <div class="w-full md:w-5/12">
-                <a href="https://rumahdataku.payungagung.com">
+                <a href="{{ route('rumahdataku') }}">
                     <div
                         class="bg-white border flex md:h-80 border-gray-200 shadow-lg rounded-2xl  md:text-center space-y-5 ">
                         <img src="./assets/img/rumah-dataku.png" alt=""
