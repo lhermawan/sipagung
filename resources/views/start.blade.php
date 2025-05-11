@@ -70,7 +70,7 @@
                     onclick="openNavbar()">
                     <i class="fas fas fa-bars"></i>
                 </button>
-                <div class="hidden md:block w-full md:w-auto font-dm-sans font-medium text-white py-4 px-3 md:p-0 rounded-xl md:rounded-none md:text-gray-700 bg-primary md:bg-transparent mt-5 md:mt-0 absolute md:relative top-full left-0 right-0 z-10"
+                <div class="hidden md:block w-full md:w-auto font-dm-sans font-medium text-white py-4 px-3 md:p-0 rounded-xl md:rounded-none md:text-gray-700 bg-primary md:bg-transparent mt-5 md:mt-0 absolute md:relative top-full left-0 right-0 z-10 font-bold outline outline-1 outline-white"
                     id="navbar">
                     <ul class="flex flex-col md:flex-row gap-3 md:gap-9">
                         <li class="md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out">
