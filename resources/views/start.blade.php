@@ -70,14 +70,14 @@
                     onclick="openNavbar()">
                     <i class="fas fas fa-bars"></i>
                 </button>
-                <div class="hidden md:block w-full md:w-auto font-dm-sans font-medium text-white py-4 px-3 md:p-0 rounded-xl md:rounded-none md:text-gray-700 bg-primary md:bg-transparent mt-5 md:mt-0 absolute md:relative top-full left-0 right-0 z-10 font-bold outline outline-1 outline-white"
+                <div class="hidden md:block w-full md:w-auto font-dm-sans font-medium text-white py-4 px-3 md:p-0 rounded-xl md:rounded-none md:text-gray-700 bg-primary md:bg-transparent mt-5 md:mt-0 absolute md:relative top-full left-0 right-0 z-10"
                     id="navbar">
                     <ul class="flex flex-col md:flex-row gap-3 md:gap-9">
                         <li class="md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out">
-                            <a href="#" class="nav-link">Beranda</a>
+                            <a href="#" class="nav-link font-bold outline outline-1 outline-white">Beranda</a>
                         </li>
                         <li class="relative">
-                            <a class="cursor-pointer nav-link md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out inline-flex items-center"
+                            <a class="cursor-pointer nav-link font-bold outline outline-1 outline-white md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out inline-flex items-center"
                                 onclick="toggleDropdownProfil(event)">
                                 Profil
                                 <svg class="w-2.5 h-2.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -89,18 +89,18 @@
                             <ul id="dropdownMenuProfil"
                                 class="absolute left-0 z-50 hidden bg-white text-gray-800 py-2 mt-2 w-48 rounded-lg shadow-lg">
                                 <li class="hover:bg-gray-100 hover:text-primary">
-                                    <a href="/showcase/profile/visi-misi" class="block px-4 py-2">Visi Misi Desa</a>
+                                    <a href="/showcase/profile/visi-misi" class="block px-4 py-2 font-bold outline outline-1 outline-white">Visi Misi Desa</a>
                                 </li>
                                 <li class="hover:bg-gray-100 hover:text-primary">
-                                    <a href="/showcase/profile/sejarah" class="block px-4 py-2">Sejarah Desa</a>
+                                    <a href="/showcase/profile/sejarah" class="block px-4 py-2 font-bold outline outline-1 outline-white">Sejarah Desa</a>
                                 </li>
                                 <li class="hover:bg-gray-100 hover:text-primary">
-                                    <a href="/showcase/profile/aparat" class="block px-4 py-2">Aparatur Desa</a>
+                                    <a href="/showcase/profile/aparat" class="block px-4 py-2 font-bold outline outline-1 outline-white">Aparatur Desa</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="relative">
-                            <a class="cursor-pointer nav-link md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out inline-flex items-center"
+                            <a class="cursor-pointer nav-link md:hover:bg-transparent font-bold outline outline-1 outline-white md:hover:text-primary transition duration-200 ease-in-out inline-flex items-center"
                                 onclick="toggleDropdownDemo(event)">
                                 Demografi
                                 <svg class="w-2.5 h-2.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -115,37 +115,37 @@
                                     <a class="block px-4 py-2">Wilayah Administratif</a>
                                 </li> --}}
                                 <li class="hover:bg-gray-100 hover:text-primary">
-                                    <a href="/showcase/demografi/pendidikan" class="block px-4 py-2">Pendidikan</a>
+                                    <a href="/showcase/demografi/pendidikan" class="block px-4 py-2 font-bold outline outline-1 outline-white">Pendidikan</a>
                                 </li>
                                 <li class="hover:bg-gray-100 hover:text-primary">
-                                    <a href="/showcase/demografi/pekerjaan" class="block px-4 py-2">Pekerjaan</a>
+                                    <a href="/showcase/demografi/pekerjaan" class="block px-4 py-2 font-bold outline outline-1 outline-white">Pekerjaan</a>
                                 </li>
                                 <li class="hover:bg-gray-100 hover:text-primary">
-                                    <a href="/showcase/demografi/agama" class="block px-4 py-2">Agama</a>
+                                    <a href="/showcase/demografi/agama" class="block px-4 py-2 font-bold outline outline-1 outline-white">Agama</a>
                                 </li>
                                 <li class="hover:bg-gray-100 hover:text-primary">
-                                    <a href="/showcase/demografi/jeniskelamin" class="block px-4 py-2">Jenis
+                                    <a href="/showcase/demografi/jeniskelamin" class="block px-4 py-2 font-bold outline outline-1 outline-white">Jenis
                                         Kelamin</a>
                                 </li>
                                 <li class="hover:bg-gray-100 hover:text-primary">
-                                    <a href="/showcase/demografi/umur" class="block px-4 py-2">Umur</a>
+                                    <a href="/showcase/demografi/umur" class="block px-4 py-2 font-bold outline outline-1 outline-white">Umur</a>
                                 </li>
                                 <li class="hover:bg-gray-100 hover:text-primary">
-                                    <a href="/showcase/demografi/luaswilayah" class="block px-4 py-2">Luas Wilayah</a>
+                                    <a href="/showcase/demografi/luaswilayah" class="block px-4 py-2 font-bold outline outline-1 outline-white">Luas Wilayah</a>
                                 </li>
                                 <li class="hover:bg-gray-100 hover:text-primary">
-                                    <a href="/showcase/demografi/disabilitas" class="block px-4 py-2">Disabilitas</a>
+                                    <a href="/showcase/demografi/disabilitas" class="block px-4 py-2 font-bold outline outline-1 outline-white">Disabilitas</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out">
-                            <a href="/showcase/idm/ {{ date('Y') }}" class="">IDM</a>
+                            <a href="/showcase/idm/ {{ date('Y') }}" class="font-bold outline outline-1 outline-white">IDM</a>
                         </li>
                         <li class="md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out">
-                            <a href="/showcase/laporan_apdes" class="">Laporan APDES</a>
+                            <a href="/showcase/laporan_apdes" class="font-bold outline outline-1 outline-white">Laporan APDES</a>
                         </li>
                         <li class="relative">
-                            <a class="cursor-pointer nav-link md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out inline-flex items-center"
+                            <a class="cursor-pointer nav-link font-bold outline outline-1 outline-white md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out inline-flex items-center"
                                 onclick="toggleDropdownPotensi(event)">
                                 Potensi
                                 <svg class="w-2.5 h-2.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -158,23 +158,23 @@
                                 class="absolute left-0 z-50 hidden bg-white text-gray-800 py-2 mt-2 w-48 rounded-lg shadow-lg">
                                 <li class="hover:bg-gray-100 hover:text-primary
                                 ary">
-                                    <a href="/showcase/lapak" class="block px-4 py-2">Lapak Desa</a>
+                                    <a href="/showcase/lapak" class="block px-4 py-2 font-bold outline outline-1 outline-white">Lapak Desa</a>
                                 </li>
                                 <li class="hover:bg-gray-100 hover:text-primary
                                 ary">
-                                    <a href="/showcase/potensi/potensi_desa" class="block px-4 py-2">Potensi Desa</a>
+                                    <a href="/showcase/potensi/potensi_desa" class="block px-4 py-2 font-bold outline outline-1 outline-white">Potensi Desa</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out">
-                            <a href="/showcase/regulasi" class="">Regulasi</a>
+                            <a href="/showcase/regulasi" class="font-bold outline outline-1 outline-white">Regulasi</a>
                         </li>
                         <li class="md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out">
-                            <a href="/showcase/berita" class="">Berita</a>
+                            <a href="/showcase/berita" class="font-bold outline outline-1 outline-white">Berita</a>
                         </li>
 
                         <li class="relative">
-                            <a class="cursor-pointer nav-link md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out inline-flex items-center"
+                            <a class="cursor-pointer nav-link font-bold outline outline-1 outline-white md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out inline-flex items-center"
                                 onclick="toggleDropdownRumahDataku(event)">
                                 RumahDataku
                                 <svg class="w-2.5 h-2.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -188,11 +188,11 @@
                                 <li class="hover:bg-gray-100 hover:text-primary
                                 ary">
                                     <a href="showcase/rumah_dataku/demografi"
-                                        class="block px-4 py-2">Data Demografi</a>
+                                        class="block px-4 py-2 font-bold outline outline-1 outline-white">Data Demografi</a>
                                 </li>
                                 <li class="hover:bg-gray-100 hover:text-primary
                                 ary">
-                                    <a href="showcase/rumah_dataku/potensi" class="block px-4 py-2">Data
+                                    <a href="showcase/rumah_dataku/potensi font-bold outline outline-1 outline-white" class="block px-4 py-2">Data
                                         Potensi</a>
                                 </li>
                                 {{-- <hr class="border-t-[1px] border-gray-300" />
@@ -204,7 +204,7 @@
                             </ul>
                         </li>
                         <li class="md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out">
-                            <a href="https://www.lapor.go.id/" class="">SP4N LAPOR</a>
+                            <a href="https://www.lapor.go.id/" class="font-bold outline outline-1 outline-white">SP4N LAPOR</a>
                         </li>
                         {{-- <hr class="border-t-[1px] border-gray-300" />
                         <li
