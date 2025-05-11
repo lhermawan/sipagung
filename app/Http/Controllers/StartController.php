@@ -34,7 +34,7 @@ class StartController extends Controller
                        ->first();
         // $potensi = Potensi::where('id_desa_skpd', $this->id_desa)->where('potensi_status', 'Publish')->orderBy('created_at', 'DESC')->limit(3)->get();
         $penduduk = Penduduk::count();
-        $disabilitas = Disabilitas::count();
+        // $disabilitas = Disabilitas::count();
         $pekerjaanCount = Penduduk::distinct('pekerjaan')->count('pekerjaan');
         $jumlahKeluarga = Penduduk::distinct('no_kk')->count('no_kk');
         $pekerjaanStats = Penduduk::select('pekerjaan', DB::raw('count(*) as jumlah'))
@@ -52,7 +52,7 @@ class StartController extends Controller
 
         return view('start', [
             'penduduk' => $penduduk,
-            'disabilitas' => $disabilitas,
+            // 'disabilitas' => $disabilitas,
             'pekerjaanCount' => $pekerjaanCount,
             'jumlahKeluarga' => $jumlahKeluarga,
             'mostCommonJobName' => $mostCommonJobName,
