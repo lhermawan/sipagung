@@ -20,6 +20,9 @@ export default {
         {
           pattern: /to-(blue|green|purple|red|indigo|orange|teal|rose)-700/,
         },
+        {
+          pattern: /border-(blue|green|purple|red|indigo|orange|teal|rose|cyan|lime|emerald|fuchsia)-500/,
+        },
       ],
     theme: {
         fontFamily: {

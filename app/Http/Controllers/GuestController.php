@@ -51,11 +51,19 @@ class GuestController extends Controller
             $femaleData[] = $female;
         }
         $potensi = Potensi::find(1);
+        $jumlah_penduduk = Penduduk::count();
+        $jumlah_lakilaki = Penduduk::where('jenis_kelamin', 'Laki-laki')->count();
+        $jumlah_perempuan = Penduduk::where('jenis_kelamin', 'Perempuan')->count();
+        $jumlah_kk = Penduduk::distinct('no_kk')->count('no_kk');
 
         return view('showcase.rumah_dataku.rumahdataku', [
             'labels' => array_keys($groups),
             'maleData' => $maleData,
             'femaleData' => $femaleData,
+            'jumlah_penduduk' => $jumlah_penduduk,
+            'jumlah_lakilaki' => $jumlah_lakilaki,
+            'jumlah_perempuan' => $jumlah_perempuan,
+            'jumlah_kk' => $jumlah_kk,
             'demografi' => $demografi,
             'potensi' => $potensi,
         ]);
@@ -84,7 +92,8 @@ class GuestController extends Controller
 
         $maleData = [];
         $femaleData = [];
-
+        
+        // dd($jumlah_lakilaki);
         foreach ($groups as $label => [$min, $max]) {
             $male = Penduduk::where('jenis_kelamin', 'Laki-laki')
                 ->whereBetween('tanggal_lahir', [
@@ -102,7 +111,7 @@ class GuestController extends Controller
             $femaleData[] = $female;
         }
 
-        return view('showcase.rumah_dataku.rumahdataku', [
+        return view('showcase.rumah_dataku.demografi', [
             'labels' => array_keys($groups),
             'maleData' => $maleData,
             'femaleData' => $femaleData,

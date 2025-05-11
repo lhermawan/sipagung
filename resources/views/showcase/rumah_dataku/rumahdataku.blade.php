@@ -119,18 +119,25 @@
         const btn = document.getElementById('btn-' + sec);
         const color = colorMap[sec];
 
+        // Sembunyikan semua section
         sectionEl?.classList.add('hidden');
         sectionEl?.classList.remove('fade-in');
 
+        // Perbarui tombol yang tidak aktif
         if (btn) {
+            // Menghapus kelas aktif dari tombol
             btn.classList.remove('active-button', `from-${color}-500`, `to-${color}-700`, `text-white`);
-            btn.classList.add(`bg-${color}-100`);
+            
+            // Menambahkan kelas warna default untuk tombol tidak aktif
+            btn.classList.add(`bg-${color}-100`, `text-${color}-600`);
+
             const icon = btn.querySelector('.icon');
             icon?.classList.remove('text-white');
-            icon?.classList.add(`text-${color}-600`);
+            icon?.classList.add(`text-${color}-600`); // Ikon memiliki warna teks yang sesuai
         }
     });
 
+    // Menampilkan section yang dipilih
     const activeSection = document.getElementById(id);
     const activeBtn = document.getElementById('btn-' + id);
     const color = colorMap[id];
@@ -138,18 +145,23 @@
     activeSection?.classList.remove('hidden');
     activeSection?.classList.add('fade-in');
 
+    // Perbarui tombol yang aktif
     if (activeBtn) {
-        activeBtn.classList.remove(`bg-${color}-100`);
+        activeBtn.classList.remove(`bg-${color}-100`, `text-${color}-600`); // Menghapus kelas warna default
+        
+        // Menambahkan kelas aktif dengan gradien dan teks putih
         activeBtn.classList.add('active-button', `from-${color}-500`, `to-${color}-700`, 'text-white');
+        
         const icon = activeBtn.querySelector('.icon');
         icon?.classList.remove(`text-${color}-600`);
-        icon?.classList.add('text-white');
+        icon?.classList.add('text-white'); // Ikon menjadi putih saat tombol aktif
     }
 }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        sections.forEach(sec => document.getElementById(sec).classList.add('hidden'));
-    });
+document.addEventListener('DOMContentLoaded', () => {
+    sections.forEach(sec => document.getElementById(sec).classList.add('hidden'));
+});
+
 </script>
 
 

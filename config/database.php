@@ -131,6 +131,10 @@ return [
     | such as APC or Memcached. Laravel makes it easy to dig right in.
     |
     */
+    'options' => extension_loaded('pdo_mysql') ? array_filter([
+    PDO::ATTR_TIMEOUT => 10,
+    MYSQLI_OPT_CONNECT_TIMEOUT => 10,
+]) : [],
 
     'redis' => [
 
