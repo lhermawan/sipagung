@@ -6,14 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Models\Demografi;
 use App\Models\RumahdatakuPotensi as Potensi;
 use App\Models\Penduduk;
+use App\Models\DataKuantitas;
 use Carbon\Carbon;
+use App\Models\RdMigrasiDesa;
 
 class GuestController extends Controller
 {
 
     public function index()
     {
-        $demografi = Demografi::find(1);
+        // Ambil data agregat dari DataKuantitas
+        $data_kuantitas = DataKuantitas::first(); // Mengambil data pertama
+
+        if (!$data_kuantitas) {
+            return view('showcase.rumah_dataku.rumahdataku', [
+                'message' => 'Data kuantitas belum tersedia'
+            ]);
+        }
         $groups = [
             '0-4' => [0, 4],
             '5-9' => [5, 9],
@@ -50,26 +59,58 @@ class GuestController extends Controller
             $maleData[] = -$male; // negatif agar tampil di kiri
             $femaleData[] = $female;
         }
-        $potensi = Potensi::find(1);
         $jumlah_penduduk = Penduduk::count();
         $jumlah_lakilaki = Penduduk::where('jenis_kelamin', 'Laki-laki')->count();
         $jumlah_perempuan = Penduduk::where('jenis_kelamin', 'Perempuan')->count();
         $jumlah_kk = Penduduk::distinct('no_kk')->count('no_kk');
 
+
+        // Menyiapkan data grafik pie dan bar
+        $kontrasepsi = [
+            'IUD' => $data_kuantitas->iud,
+            'MOW' => $data_kuantitas->mow,
+            'MOP' => $data_kuantitas->mop,
+            'Implant' => $data_kuantitas->implant,
+            'Suntik' => $data_kuantitas->suntik,
+            'Pil' => $data_kuantitas->pil,
+            'Kondom' => $data_kuantitas->kondom,
+        ];
+
+        $tidak_berkb = [
+            'IAS' => $data_kuantitas->ias,
+            'IAT' => $data_kuantitas->iat,
+            'TIAL' => $data_kuantitas->tial,
+            'Hamil' => $data_kuantitas->jumlah_ibu_hamil,
+        ];
+
+        // Data lainnya
+        $ibu_hamil = $data_kuantitas->jumlah_ibu_hamil;
+        $pus = $data_kuantitas->jumlah_pasangan_usia_subur;
+        $wus = $data_kuantitas->jumlah_wanita_usia_subur;
+        $demografi = Demografi::find(1);
+        $potensi = Potensi::find(1);
+        $migrasiDesa = RdMigrasiDesa::orderBy('tahun', 'asc')->get();
+
+        // Kirim data ke view
         return view('showcase.rumah_dataku.rumahdataku', [
             'labels' => array_keys($groups),
+            'migrasiDesa' => $migrasiDesa,
             'maleData' => $maleData,
             'femaleData' => $femaleData,
             'jumlah_penduduk' => $jumlah_penduduk,
             'jumlah_lakilaki' => $jumlah_lakilaki,
             'jumlah_perempuan' => $jumlah_perempuan,
             'jumlah_kk' => $jumlah_kk,
+            'kontrasepsi' => $kontrasepsi,
+            'tidak_berkb' => $tidak_berkb,
+            'ibu_hamil' => $ibu_hamil,
+            'pus' => $pus,
+            'wus' => $wus,
             'demografi' => $demografi,
             'potensi' => $potensi,
         ]);
-
-
     }
+
     public function demografi()
     {
         $demografi = Demografi::find(1);
@@ -92,7 +133,7 @@ class GuestController extends Controller
 
         $maleData = [];
         $femaleData = [];
-        
+
         // dd($jumlah_lakilaki);
         foreach ($groups as $label => [$min, $max]) {
             $male = Penduduk::where('jenis_kelamin', 'Laki-laki')

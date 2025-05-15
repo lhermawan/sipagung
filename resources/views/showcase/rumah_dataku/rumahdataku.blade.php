@@ -62,20 +62,21 @@
 
     <!-- Section: Data Kuantitas (Contoh) -->
     <div id="data-kuantitas" class="hidden">
-        @include('showcase.rumah_dataku.kuantitas')
+        {{-- @include('showcase.rumah_dataku.partial.kuantitas') --}}
     </div>
 
     <!-- Placeholder for other data sections -->
     <div id="data-kualitas" class="hidden">
-        @include('showcase.rumah_dataku.demografi')
+        @include('showcase.rumah_dataku.partial.demografi')
     </div>
-    <div id="data-migrasi" class="hidden">...</div>
+    <div id="data-migrasi" class="hidden">@include('showcase.rumah_dataku.partial.migrasi')</div>
     <div id="data-perlindungan" class="hidden">...</div>
     <div id="data-administrasi" class="hidden">...</div>
     <div id="data-pembangunan" class="hidden">...</div>
-    <div id="data-potensi" class="hidden">...</div>
+    <div id="data-potensi" class="hidden"> @include('showcase.rumah_dataku.partial.potensi')</div>
     <div id="data-infografis" class="hidden">...</div>
 </section>
+
 <style>
  .active-button {
     background-image: linear-gradient(to right, var(--tw-gradient-from), var(--tw-gradient-to));
@@ -112,57 +113,69 @@
     ];
 
     function showSection(id) {
-    const colorMap = @json(array_column($menus, 'color', 'id'));
+        const colorMap = @json(array_column($menus, 'color', 'id'));
 
-    sections.forEach(sec => {
-        const sectionEl = document.getElementById(sec);
-        const btn = document.getElementById('btn-' + sec);
-        const color = colorMap[sec];
+        sections.forEach(sec => {
+            const sectionEl = document.getElementById(sec);
+            const btn = document.getElementById('btn-' + sec);
+            const clr = colorMap[sec];
 
-        // Sembunyikan semua section
-        sectionEl?.classList.add('hidden');
-        sectionEl?.classList.remove('fade-in');
+            // Sembunyikan semua section
+            if (sectionEl) {
+                sectionEl.classList.add('hidden');
+                sectionEl.classList.remove('fade-in');
 
-        // Perbarui tombol yang tidak aktif
-        if (btn) {
-            // Menghapus kelas aktif dari tombol
-            btn.classList.remove('active-button', `from-${color}-500`, `to-${color}-700`, `text-white`);
-            
-            // Menambahkan kelas warna default untuk tombol tidak aktif
-            btn.classList.add(`bg-${color}-100`, `text-${color}-600`);
+                // Hapus background gradasi sebelumnya
+                sectionEl.classList.remove(
+                    'bg-gradient-to-br',
+                    `from-${clr}-100`,
+                    `to-${clr}-200`
+                );
+            }
 
-            const icon = btn.querySelector('.icon');
-            icon?.classList.remove('text-white');
-            icon?.classList.add(`text-${color}-600`); // Ikon memiliki warna teks yang sesuai
+            // Reset tombol
+            if (btn) {
+                btn.classList.remove('active-button', `from-${clr}-500`, `to-${clr}-700`, 'text-white');
+                btn.classList.add(`bg-${clr}-100`, `text-${clr}-600`);
+
+                const icon = btn.querySelector('.icon');
+                icon?.classList.remove('text-white');
+                icon?.classList.add(`text-${clr}-600`);
+            }
+        });
+
+        // Tampilkan section aktif
+        const activeSection = document.getElementById(id);
+        const activeBtn = document.getElementById('btn-' + id);
+        const clr = colorMap[id];
+
+        if (activeSection) {
+            activeSection.classList.remove('hidden');
+            activeSection.classList.add('fade-in');
+
+            // Tambahkan gradasi warna background
+            activeSection.classList.add(
+                'bg-gradient-to-br',
+                `from-${clr}-100`,
+                `to-${clr}-200`
+            );
         }
-    });
 
-    // Menampilkan section yang dipilih
-    const activeSection = document.getElementById(id);
-    const activeBtn = document.getElementById('btn-' + id);
-    const color = colorMap[id];
+        if (activeBtn) {
+            activeBtn.classList.remove(`bg-${clr}-100`, `text-${clr}-600`);
+            activeBtn.classList.add('active-button', `from-${clr}-500`, `to-${clr}-700`, 'text-white');
 
-    activeSection?.classList.remove('hidden');
-    activeSection?.classList.add('fade-in');
-
-    // Perbarui tombol yang aktif
-    if (activeBtn) {
-        activeBtn.classList.remove(`bg-${color}-100`, `text-${color}-600`); // Menghapus kelas warna default
-        
-        // Menambahkan kelas aktif dengan gradien dan teks putih
-        activeBtn.classList.add('active-button', `from-${color}-500`, `to-${color}-700`, 'text-white');
-        
-        const icon = activeBtn.querySelector('.icon');
-        icon?.classList.remove(`text-${color}-600`);
-        icon?.classList.add('text-white'); // Ikon menjadi putih saat tombol aktif
+            const icon = activeBtn.querySelector('.icon');
+            icon?.classList.remove(`text-${clr}-600`);
+            icon?.classList.add('text-white');
+        }
     }
-}
 
-document.addEventListener('DOMContentLoaded', () => {
-    sections.forEach(sec => document.getElementById(sec).classList.add('hidden'));
-});
-
+    document.addEventListener('DOMContentLoaded', () => {
+        sections.forEach(sec => document.getElementById(sec)?.classList.add('hidden'));
+    });
 </script>
+
 
 
 @endsection

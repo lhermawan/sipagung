@@ -19,9 +19,9 @@
     <meta name="google" content="nositelinkssearchbox">
     <meta name="googlebot" content="notranslate">
     <meta name="google" content="nopagereadaloud">
-
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     @include('navbar-tailwind.css')
-
+    @livewireStyles
 </head>
 
 <body class="hold-transition sidebar-mini ">
@@ -508,4 +508,5 @@
     });
 </script>
 @yield('scripts')
+@livewireScripts
 </body>
