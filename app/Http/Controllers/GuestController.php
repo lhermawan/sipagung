@@ -9,6 +9,11 @@ use App\Models\Penduduk;
 use App\Models\DataKuantitas;
 use Carbon\Carbon;
 use App\Models\RdMigrasiDesa;
+use App\Models\RdPotensiDesa;
+use App\Models\RdPerlindunganSosial;
+use App\Models\RdAdministrasiKependudukan;
+use App\Models\RdPembangunanKeluarga;
+use App\Models\RdKualitas;
 
 class GuestController extends Controller
 {
@@ -88,9 +93,37 @@ class GuestController extends Controller
         $pus = $data_kuantitas->jumlah_pasangan_usia_subur;
         $wus = $data_kuantitas->jumlah_wanita_usia_subur;
         $demografi = Demografi::find(1);
-        $potensi = Potensi::find(1);
+        $potensi = RdPotensiDesa::selectRaw('
+    SUM(posyandu) as posyandu,
+    SUM(tk_ra) as tk_ra,
+    SUM(sd) as sd,
+    SUM(smp_sederajat) as smp_sederajat,
+    SUM(sma) as sma,
+    SUM(pkbm) as pkbm,
+    SUM(fasilitas_olahraga) as fasilitas_olahraga,
+    SUM(fasilitas_kesehatan) as fasilitas_kesehatan,
+    SUM(fasilitas_ibadah) as fasilitas_ibadah,
+    SUM(pasar) as pasar,
+    SUM(bkb) as bkb,
+    SUM(bkr) as bkr,
+    SUM(bkl) as bkl,
+    SUM(uppka) as uppka,
+    SUM(pik_r) as pik_r,
+    SUM(stunting_gizi_buruk) as stunting_gizi_buruk,
+    SUM(produk_unggulan) as produk_unggulan,
+    SUM(luas_jalan) as luas_jalan,
+    SUM(j_rw_dusun) as j_rw_dusun,
+    SUM(j_rt) as j_rt,
+    SUM(luas_wilayah) as luas_wilayah,
+    SUM(ketinggian) as ketinggian,
+    SUM(j_penduduk_laki) as j_penduduk_laki,
+    SUM(j_penduduk_perempuan) as j_penduduk_perempuan
+')->first();
         $migrasiDesa = RdMigrasiDesa::orderBy('tahun', 'asc')->get();
-
+        $perlindunganSosial = RdPerlindunganSosial::first();
+        $administrasiKependudukan = RdAdministrasiKependudukan::first();
+        $pembangunanKeluarga = RdPembangunanKeluarga::all();
+        $kualitas = RdKualitas::all();
         // Kirim data ke view
         return view('showcase.rumah_dataku.rumahdataku', [
             'labels' => array_keys($groups),
@@ -108,6 +141,10 @@ class GuestController extends Controller
             'wus' => $wus,
             'demografi' => $demografi,
             'potensi' => $potensi,
+            'perlindungan' => $perlindunganSosial,
+            'administrasiKependudukan' => $administrasiKependudukan,
+            'pembangunanKeluarga' => $pembangunanKeluarga,
+            'data' => $kualitas,
         ]);
     }
 

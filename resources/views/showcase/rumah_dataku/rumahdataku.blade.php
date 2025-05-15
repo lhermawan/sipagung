@@ -62,17 +62,17 @@
 
     <!-- Section: Data Kuantitas (Contoh) -->
     <div id="data-kuantitas" class="hidden">
-        {{-- @include('showcase.rumah_dataku.partial.kuantitas') --}}
+        @include('showcase.rumah_dataku.partial.kuantitas')
     </div>
 
     <!-- Placeholder for other data sections -->
     <div id="data-kualitas" class="hidden">
-        @include('showcase.rumah_dataku.partial.demografi')
+        @include('showcase.rumah_dataku.partial.kualitas')
     </div>
     <div id="data-migrasi" class="hidden">@include('showcase.rumah_dataku.partial.migrasi')</div>
-    <div id="data-perlindungan" class="hidden">...</div>
-    <div id="data-administrasi" class="hidden">...</div>
-    <div id="data-pembangunan" class="hidden">...</div>
+    <div id="data-perlindungan" class="hidden">@include('showcase.rumah_dataku.partial.perlindungan')</div>
+    <div id="data-administrasi" class="hidden">@include('showcase.rumah_dataku.partial.administrasi_kependudukan')</div>
+    <div id="data-pembangunan" class="hidden">@include('showcase.rumah_dataku.partial.pembangunan_keluarga')</div>
     <div id="data-potensi" class="hidden"> @include('showcase.rumah_dataku.partial.potensi')</div>
     <div id="data-infografis" class="hidden">...</div>
 </section>
