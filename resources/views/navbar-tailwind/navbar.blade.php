@@ -21,7 +21,7 @@
     <meta name="google" content="nopagereadaloud">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     @include('navbar-tailwind.css')
-    @livewireStyles
+    {{-- @livewireStyles --}}
 </head>
 
 <body class="hold-transition sidebar-mini ">
@@ -474,5 +474,5 @@
     });
 </script>
 @yield('scripts')
-@livewireScripts
+{{-- @livewireScripts --}}
 </body>
