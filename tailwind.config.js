@@ -33,6 +33,9 @@ export default {
             inter: ["Inter", "sans-serif"],
         },
         extend: {
+            screens: {
+                'custom': '1524px',
+              },
             colors: {
                 antiflash: "#f1f7f6",
                 caribbean: "#00df81",

@@ -147,35 +147,8 @@
                         <li class="md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out">
                             <a href="/showcase/berita/berita" class="">Berita</a>
                         </li>
-                        <li class="relative">
-                            <a class="cursor-pointer nav-link md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out inline-flex items-center"
-                                onclick="toggleDropdownRumahDataku(event)">
-                                RumahDataku
-                                <svg class="w-2.5 h-2.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="none" viewBox="0 0 10 6">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="m1 1 4 4 4-4" />
-                                </svg>
-                            </a>
-                            <ul id="dropdownMenuRumahDataku"
-                                class="absolute left-0 z-50 hidden bg-white text-gray-800 py-2 mt-2 w-48 rounded-lg shadow-lg">
-                                <li class="hover:bg-gray-100 hover:text-primary
-                                ary">
-                                    <a href="/showcase/rumah_dataku/demografi"
-                                        class="block px-4 py-2">Data Demografi</a>
-                                </li>
-                                <li class="hover:bg-gray-100 hover:text-primary
-                                ary">
-                                    <a href="/showcase/rumah_dataku/potensi" class="block px-4 py-2">Data
-                                        Potensi</a>
-                                </li>
-                                {{-- <hr class="border-t-[1px] border-gray-300" />
-                                <li class="hover:bg-gray-100 hover:text-primary
-                                ary">
-                                    <a href="https://rumahdataku.payungagung.com/dashboard/login"
-                                        class="block px-4 py-2">Masuk</a>
-                                </li> --}}
-                            </ul>
+                        <li class="md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out">
+                            <a href="{{ route('rumahdataku') }}" class="">Rumah Dataku</a>
                         </li>
                         <li class="md:hover:bg-transparent md:hover:text-primary transition duration-200 ease-in-out">
                             <a href="https://www.lapor.go.id/" class="">SP4N LAPOR</a>
@@ -430,16 +403,10 @@
             toggleDropdown(dropdownMenu);
         }
 
-        function toggleDropdownRumahDataku(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            const dropdownMenu = document.getElementById('dropdownMenuRumahDataku');
-            toggleDropdown(dropdownMenu);
-        }
+
 
         function toggleDropdown(currentDropdown) {
-            const allDropdowns = ['dropdownMenuProfil', 'dropdownMenuDemo', 'dropdownMenuPotensi',
-                'dropdownMenuRumahDataku'
+            const allDropdowns = ['dropdownMenuProfil', 'dropdownMenuDemo', 'dropdownMenuPotensi'
             ];
             allDropdowns.forEach(function(id) {
                 const dropdownMenu = document.getElementById(id);
@@ -454,8 +421,7 @@
 
         document.addEventListener('click', function(event) {
 
-            const dropdowns = ['dropdownMenuProfil', 'dropdownMenuDemo', 'dropdownMenuPotensi',
-                'dropdownMenuRumahDataku'
+            const dropdowns = ['dropdownMenuProfil', 'dropdownMenuDemo', 'dropdownMenuPotensi'
             ];
             dropdowns.forEach(function(id) {
                 const dropdownMenu = document.getElementById(id);
