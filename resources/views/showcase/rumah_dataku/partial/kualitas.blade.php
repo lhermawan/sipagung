@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const pekerjaanKeys = [
         'pekerjaan_petani', 'pekerjaan_nelayan', 'pekerjaan_pedagang', 'pekerjaan_pejabat',
         'pekerjaan_pns_tni_polri', 'pekerjaan_swasta', 'pekerjaan_wiraswasta',
-        'pekerjaan_pensiunan', 'pekerjaan_pekerja_lepas'
+        'pekerjaan_pensiunan', 'pekerjaan_pekerja_lepas', 'pekerjaan_tidak_bekerja'
     ];
     const categoriesPekerjaan = dusunData.map(d => d.wilayah);
     const seriesPekerjaan = pekerjaanKeys.map(key => ({
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
         plotOptions: { bar: { horizontal: false, columnWidth: '55%' } },
         dataLabels: { enabled: false },
         legend: { position: 'bottom', horizontalAlign: 'center', fontSize: '12px' },
-        colors: ['#f6ad55', '#ed8936', '#dd6b20', '#c05621', '#9c4221', '#805ad5', '#6b46c1', '#553c9a', '#38a169']
+        colors: ['#f6ad55', '#ed8936', '#dd6b20', '#c05621', '#9c4221', '#805ad5', '#6b46c1', '#553c9a', '#38a169','#c53030']
     };
     var chartPekerjaan = new ApexCharts(document.querySelector("#chartPekerjaan"), optionsPekerjaan);
     chartPekerjaan.render();
