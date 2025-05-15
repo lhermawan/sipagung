@@ -13,7 +13,7 @@ class Penduduk extends Model
     public $incrementing = false;
     protected $keyType = 'string';
     public $timestamps = true;
-    protected $connection = 'mysql2';
+    
     protected $fillable = [
         'nik',
         'no_kk',
