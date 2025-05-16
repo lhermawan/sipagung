@@ -64,50 +64,216 @@ document.addEventListener('DOMContentLoaded', function () {
     var chartPus = new ApexCharts(document.querySelector("#chartPusUsia"), optionsPus);
     chartPus.render();
 
-    // 2. Jumlah Individu Menurut Pekerjaan
+    // 2. Jumlah Individu Menurut Pekerjaan (Interaktif: Ringkasan > Detail)
     const pekerjaanKeys = [
         'pekerjaan_petani', 'pekerjaan_nelayan', 'pekerjaan_pedagang', 'pekerjaan_pejabat',
         'pekerjaan_pns_tni_polri', 'pekerjaan_swasta', 'pekerjaan_wiraswasta',
         'pekerjaan_pensiunan', 'pekerjaan_pekerja_lepas', 'pekerjaan_tidak_bekerja'
     ];
-    const categoriesPekerjaan = dusunData.map(d => d.wilayah);
-    const seriesPekerjaan = pekerjaanKeys.map(key => ({
-        name: key.replace('pekerjaan_', '').replace(/_/g, ' ').toUpperCase(),
-        data: dusunData.map(d => d[key] || 0)
-    }));
-    var optionsPekerjaan = {
-        chart: { type: 'bar', height: 300, stacked: true, toolbar: { show: false } },
-        series: seriesPekerjaan,
-        xaxis: { categories: categoriesPekerjaan },
+
+    const categoriesDusun = dusunData.map(d => d.wilayah);
+    const totalPerDusun = dusunData.map(d =>
+        pekerjaanKeys.reduce((sum, key) => sum + (d[key] || 0), 0)
+    );
+
+    let chartPekerjaan; // global agar bisa di-destroy saat ganti chart
+
+    const optionsPekerjaanOverview = {
+        chart: {
+            type: 'bar',
+            height: 300,
+            toolbar: { show: false },
+            events: {
+                dataPointSelection: function (event, chartContext, config) {
+                    const index = config.dataPointIndex;
+                    const dusunName = categoriesDusun[index];
+                    showDetailPekerjaan(dusunName);
+                }
+            }
+        },
+        series: [{
+            name: 'Jumlah Individu',
+            data: totalPerDusun
+        }],
+        xaxis: { categories: categoriesDusun },
         plotOptions: { bar: { horizontal: false, columnWidth: '55%' } },
         dataLabels: { enabled: false },
-        legend: { position: 'bottom', horizontalAlign: 'center', fontSize: '12px' },
-        colors: ['#f6ad55', '#ed8936', '#dd6b20', '#c05621', '#9c4221', '#805ad5', '#6b46c1', '#553c9a', '#38a169','#c53030']
+        legend: { position: 'bottom' },
+        colors: ['#38a169'],
+        title: { text: 'Jumlah Individu per Dusun (Klik untuk Detail)' }
     };
-    var chartPekerjaan = new ApexCharts(document.querySelector("#chartPekerjaan"), optionsPekerjaan);
+
+    chartPekerjaan = new ApexCharts(document.querySelector("#chartPekerjaan"), optionsPekerjaanOverview);
     chartPekerjaan.render();
 
-    // 3. Jumlah Individu Menurut Pendidikan Terakhir
-    const pendidikanKeys = [
-        'pendidikan_tidak_sekolah', 'pendidikan_tidak_tamat_sd', 'pendidikan_tamat_sd',
-        'pendidikan_sltp', 'pendidikan_slta', 'pendidikan_pt'
+    function showDetailPekerjaan(dusunName) {
+    const dusun = dusunData.find(d => d.wilayah === dusunName);
+    const labels = pekerjaanKeys.map(key =>
+        key.replace('pekerjaan_', '').replace(/_/g, ' ').toUpperCase()
+    );
+    const data = pekerjaanKeys.map(key => dusun[key] || 0);
+
+    const warnaPerPekerjaan = [
+        '#f6ad55', '#ed8936', '#dd6b20', '#c05621', '#9c4221',
+        '#805ad5', '#6b46c1', '#553c9a', '#38a169', '#c53030'
     ];
-    const categoriesPendidikan = dusunData.map(d => d.wilayah);
-    const seriesPendidikan = pendidikanKeys.map(key => ({
-        name: key.replace('pendidikan_', '').replace(/_/g, ' ').toUpperCase(),
-        data: dusunData.map(d => d[key] || 0)
-    }));
-    var optionsPendidikan = {
-        chart: { type: 'bar', height: 300, stacked: true, toolbar: { show: false } },
-        series: seriesPendidikan,
-        xaxis: { categories: categoriesPendidikan },
-        plotOptions: { bar: { horizontal: false, columnWidth: '55%' } },
-        dataLabels: { enabled: false },
-        legend: { position: 'bottom', horizontalAlign: 'center', fontSize: '12px' },
-        colors: ['#f56565', '#c53030', '#9b2c2c', '#2c7a7b', '#4fd1c5', '#285e61']
+
+    const detailOptions = {
+        chart: {
+            type: 'bar',
+            height: 400,
+            toolbar: {
+                show: true,
+                tools: {
+                    customIcons: [{
+                        icon: '<span style="cursor:pointer;">⬅️</span>',
+                        index: -1,
+                        title: 'Kembali',
+                        class: 'back-button',
+                        click: function () {
+                            chartPekerjaan.destroy();
+                            chartPekerjaan = new ApexCharts(document.querySelector("#chartPekerjaan"), optionsPekerjaanOverview);
+                            chartPekerjaan.render();
+                        }
+                    }]
+                }
+            }
+        },
+        series: [{
+            name: 'Jumlah Individu',
+            data: data
+        }],
+        xaxis: {
+            categories: labels,
+            labels: {
+                rotate: -45,
+                style: { fontSize: '12px' }
+            }
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '45%',
+                distributed: true // <-- penting untuk warna berbeda
+            }
+        },
+        dataLabels: { enabled: true },
+        legend: { show: false },
+        colors: warnaPerPekerjaan,
+        title: { text: `Detail Pekerjaan di Dusun ${dusunName}` }
     };
-    var chartPendidikan = new ApexCharts(document.querySelector("#chartPendidikan"), optionsPendidikan);
+
+    chartPekerjaan.destroy();
+    chartPekerjaan = new ApexCharts(document.querySelector("#chartPekerjaan"), detailOptions);
+    chartPekerjaan.render();
+}
+
+let chartPendidikan; // supaya bisa destroy/replace saat klik
+
+// 3. Jumlah Individu Menurut Pendidikan Terakhir
+const pendidikanKeys = [
+    'pendidikan_tidak_sekolah', 'pendidikan_tidak_tamat_sd', 'pendidikan_tamat_sd',
+    'pendidikan_sltp', 'pendidikan_slta', 'pendidikan_pt'
+];
+
+const pendidikanLabels = pendidikanKeys.map(key =>
+    key.replace('pendidikan_', '').replace(/_/g, ' ').toUpperCase()
+);
+
+const categoriesPendidikan = dusunData.map(d => d.wilayah);
+const seriesPendidikan = pendidikanKeys.map(key => ({
+    name: key.replace('pendidikan_', '').replace(/_/g, ' ').toUpperCase(),
+    data: dusunData.map(d => d[key] || 0)
+}));
+
+const warnaPendidikan = ['#f56565', '#c53030', '#9b2c2c', '#2c7a7b', '#4fd1c5', '#285e61'];
+
+const totalPendidikanPerDusun = dusunData.map(d =>
+    pendidikanKeys.reduce((sum, key) => sum + (d[key] || 0), 0)
+);
+
+const optionsPendidikan = {
+    chart: {
+        type: 'bar',
+        height: 300,
+        stacked: false,
+        toolbar: { show: false },
+        events: {
+            dataPointSelection: function (event, chartContext, config) {
+                const index = config.dataPointIndex;
+                const dusunName = categoriesPendidikan[index];
+                showDetailPendidikan(dusunName);
+            }
+        }
+    },
+    series: [{
+        name: 'Jumlah Individu',
+        data: totalPendidikanPerDusun
+    }],
+    xaxis: { categories: categoriesPendidikan },
+    plotOptions: { bar: { horizontal: false, columnWidth: '55%' } },
+    dataLabels: { enabled: false },
+    legend: { position: 'bottom', horizontalAlign: 'center', fontSize: '12px' },
+    colors: ['#2c7a7b'],
+    title: { text: 'Jumlah Individu Menurut Pendidikan per Dusun (Klik untuk Detail)' }
+};
+
+chartPendidikan = new ApexCharts(document.querySelector("#chartPendidikan"), optionsPendidikan);
+chartPendidikan.render();
+
+function showDetailPendidikan(dusunName) {
+    const dusun = dusunData.find(d => d.wilayah === dusunName);
+    const data = pendidikanKeys.map(key => dusun[key] || 0);
+
+    const detailOptions = {
+        chart: {
+            type: 'bar',
+            height: 350,
+            toolbar: {
+                show: true,
+                tools: {
+                    customIcons: [{
+                        icon: '<span style="cursor:pointer;">⬅️</span>',
+                        index: -1,
+                        title: 'Kembali',
+                        class: 'back-button',
+                        click: function () {
+                            chartPendidikan.destroy();
+                            chartPendidikan = new ApexCharts(document.querySelector("#chartPendidikan"), optionsPendidikan);
+                            chartPendidikan.render();
+                        }
+                    }]
+                }
+            }
+        },
+        series: [{
+            name: 'Jumlah Individu',
+            data: data
+        }],
+        xaxis: {
+            categories: pendidikanLabels,
+            labels: {
+                rotate: -45,
+                style: { fontSize: '12px' }
+            }
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '45%',
+                distributed: true // warna beda tiap bar
+            }
+        },
+        dataLabels: { enabled: true },
+        legend: { show: false },
+        colors: warnaPendidikan,
+        title: { text: `Detail Pendidikan di Dusun ${dusunName}` }
+    };
+
+    chartPendidikan.destroy();
+    chartPendidikan = new ApexCharts(document.querySelector("#chartPendidikan"), detailOptions);
     chartPendidikan.render();
+}
 
     // 4. Jumlah Anak Usia Sekolah
     const anakKeys = ['anak_usia_7_12', 'anak_usia_13_15', 'anak_usia_16_18', 'anak_usia_19_24'];
