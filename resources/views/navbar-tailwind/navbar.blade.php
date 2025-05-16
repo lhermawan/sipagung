@@ -31,7 +31,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.3.67/css/materialdesignicons.min.css" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    {{-- @livewireStyles --}}
+    
 </head>
 
 <body class="hold-transition sidebar-mini ">
