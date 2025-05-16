@@ -9,7 +9,7 @@ class DataKuantitas extends Model
 {
     use HasFactory;
 
-    protected $table = 'data_kuantitas';
+    protected $table = 'rd_kuantitas';
 
     protected $fillable = [
         // Alat Kontrasepsi

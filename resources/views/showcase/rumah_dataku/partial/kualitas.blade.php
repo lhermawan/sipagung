@@ -96,10 +96,10 @@ document.addEventListener('DOMContentLoaded', function () {
             data: totalPerDusun
         }],
         xaxis: { categories: categoriesDusun },
-        plotOptions: { bar: { horizontal: false, columnWidth: '55%' } },
+        plotOptions: { bar: { horizontal: false, columnWidth: '55%', distributed: true } },
         dataLabels: { enabled: false },
         legend: { position: 'bottom' },
-        colors: ['#38a169'],
+        colors: ['#f56565', '#c53030', '#9b2c2c', '#2c7a7b', '#4fd1c5', '#285e61', '#68d391', '#38a169', '#3182ce', '#805ad5'],
         title: { text: 'Jumlah Individu per Dusun (Klik untuk Detail)' }
     };
 
@@ -211,10 +211,10 @@ const optionsPendidikan = {
         data: totalPendidikanPerDusun
     }],
     xaxis: { categories: categoriesPendidikan },
-    plotOptions: { bar: { horizontal: false, columnWidth: '55%' } },
+    plotOptions: { bar: { horizontal: false, columnWidth: '55%', distributed: true } },
     dataLabels: { enabled: false },
     legend: { position: 'bottom', horizontalAlign: 'center', fontSize: '12px' },
-    colors: ['#2c7a7b'],
+    colors: ['#f56565', '#c53030', '#9b2c2c', '#2c7a7b', '#4fd1c5', '#285e61', '#68d391', '#38a169', '#3182ce', '#805ad5'],
     title: { text: 'Jumlah Individu Menurut Pendidikan per Dusun (Klik untuk Detail)' }
 };
 
