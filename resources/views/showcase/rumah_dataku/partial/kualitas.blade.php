@@ -276,42 +276,175 @@ function showDetailPendidikan(dusunName) {
 }
 
     // 4. Jumlah Anak Usia Sekolah
-    const anakKeys = ['anak_usia_7_12', 'anak_usia_13_15', 'anak_usia_16_18', 'anak_usia_19_24'];
-    const categoriesAnak = dusunData.map(d => d.wilayah);
-    const seriesAnak = anakKeys.map(key => ({
-        name: key.replace(/anak_usia_/g, 'Usia ').replace(/_/g, '-'),
-        data: dusunData.map(d => d[key] || 0)
-    }));
-    var optionsAnak = {
-        chart: { type: 'bar', height: 300, stacked: true, toolbar: { show: false } },
-        series: seriesAnak,
-        xaxis: { categories: categoriesAnak },
-        plotOptions: { bar: { horizontal: false, columnWidth: '55%' } },
-        dataLabels: { enabled: false },
-        legend: { position: 'bottom', horizontalAlign: 'center', fontSize: '12px' },
-        colors: ['#68d391', '#48bb78', '#38a169', '#2f855a']
-    };
-    var chartAnak = new ApexCharts(document.querySelector("#chartAnakUsia"), optionsAnak);
-    chartAnak.render();
+    // 4. Jumlah Anak Usia Sekolah
+    let chartAnak; // supaya bisa destroy/replace saat klik
 
-    // 5. Jumlah keluarga Beresiko stunting (payungagung saja)
-    const payungagung = data.find(d => d.wilayah.toLowerCase() === 'payungagung') || {};
-    const stuntingSeries = [
-        { name: 'Sasaran Stunting', data: [payungagung.sasaran_stunting || 0] },
-        { name: 'Berisiko Stunting', data: [payungagung.berisiko_stunting || 0] },
-        { name: 'Tidak Berisiko Stunting', data: [payungagung.tidak_berisiko_stunting || 0] }
-    ];
-    var optionsStunting = {
-        chart: { type: 'bar', height: 250, toolbar: { show: false } },
-        series: stuntingSeries,
-        xaxis: { categories: ['DATA BERESIKO DESA PAYUNGAGUNG'] },
-        plotOptions: { bar: { horizontal: false, columnWidth: '55%' } },
-        dataLabels: { enabled: false },
-        legend: { position: 'top' },
-        colors: ['#f6e05e', '#ecc94b', '#d69e2e']
+const anakKeys = ['anak_usia_7_12', 'anak_usia_13_15', 'anak_usia_16_18', 'anak_usia_19_24'];
+const anakLabels = anakKeys.map(k => k.replace('anak_usia_', 'Usia ').replace(/_/g, '-'));
+const categoriesAnak = dusunData.map(d => d.wilayah);
+
+// Hitung total anak per dusun
+const totalAnakPerDusun = dusunData.map(d =>
+    anakKeys.reduce((sum, key) => sum + (d[key] || 0), 0)
+);
+
+// Warna beda untuk tiap dusun (tambahkan jika dusun lebih banyak)
+const warnaDusun = ['#68d391', '#48bb78', '#38a169', '#2f855a', '#81e6d9', '#4fd1c5', '#319795', '#285e61'];
+
+const optionsAnak = {
+    chart: {
+        type: 'bar',
+        height: 300,
+        toolbar: { show: false },
+        events: {
+            dataPointSelection: function (event, chartContext, config) {
+                const index = config.dataPointIndex;
+                const dusunName = categoriesAnak[index];
+                showDetailAnak(dusunName);
+            }
+        }
+    },
+    series: [{
+        name: 'Jumlah Anak',
+        data: totalAnakPerDusun
+    }],
+    xaxis: {
+        categories: categoriesAnak,
+        labels: {
+            rotate: -45,
+            style: { fontSize: '12px' }
+        }
+    },
+    plotOptions: {
+        bar: {
+            horizontal: false,
+            columnWidth: '50%',
+            distributed: true
+        }
+    },
+    dataLabels: { enabled: false },
+    legend: { show: false },
+    colors: warnaDusun,
+    title: { text: 'Jumlah Anak Usia Sekolah per Dusun (Klik untuk Detail)' }
+};
+
+chartAnak = new ApexCharts(document.querySelector("#chartAnakUsia"), optionsAnak);
+chartAnak.render();
+function showDetailAnak(dusunName) {
+    const dusun = dusunData.find(d => d.wilayah === dusunName);
+    const data = anakKeys.map(key => dusun[key] || 0);
+
+    const warnaAnak = ['#68d391', '#48bb78', '#38a169', '#2f855a']; // satu warna per kategori usia
+
+    const detailOptions = {
+        chart: {
+            type: 'bar',
+            height: 350,
+            toolbar: {
+                show: true,
+                tools: {
+                    customIcons: [{
+                        icon: '<span style="cursor:pointer;">⬅️</span>',
+                        index: -1,
+                        title: 'Kembali',
+                        class: 'back-button',
+                        click: function () {
+                            chartAnak.destroy();
+                            chartAnak = new ApexCharts(document.querySelector("#chartAnakUsia"), optionsAnak);
+                            chartAnak.render();
+                        }
+                    }]
+                }
+            }
+        },
+        series: [{
+            name: 'Jumlah Anak',
+            data: data
+        }],
+        xaxis: {
+            categories: anakLabels,
+            labels: {
+                rotate: -45,
+                style: { fontSize: '12px' }
+            }
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '45%',
+                distributed: true
+            }
+        },
+        dataLabels: { enabled: true },
+        legend: { show: false },
+        colors: warnaAnak,
+        title: { text: `Detail Anak Usia Sekolah di Dusun ${dusunName}` }
     };
-    var chartStunting = new ApexCharts(document.querySelector("#chartStunting"), optionsStunting);
-    chartStunting.render();
+
+    chartAnak.destroy();
+    chartAnak = new ApexCharts(document.querySelector("#chartAnakUsia"), detailOptions);
+    chartAnak.render();
+}
+
+    // 5. Jumlah keluarga Berisiko stunting (pie chart untuk Payungagung)
+    const payungagung = data.find(d => d.wilayah.toLowerCase() === 'payungagung') || {};
+const stuntingLabels = ['Sasaran Stunting', 'Berisiko Stunting', 'Tidak Berisiko Stunting'];
+const stuntingData = [
+    payungagung.sasaran_stunting || 0,
+    payungagung.berisiko_stunting || 0,
+    payungagung.tidak_berisiko_stunting || 0
+];
+
+const optionsStunting = {
+    chart: {
+        type: 'donut',
+        height: 400
+    },
+    series: stuntingData,
+    labels: stuntingLabels,
+    colors: ['#ed8936', '#f56565', '#48bb78'],
+    legend: {
+        position: 'bottom',
+        fontSize: '13px'
+    },
+    title: {
+        text: 'Keluarga Berisiko Stunting - Desa Payungagung',
+        align: 'center',
+        style: {
+            fontSize: '14px'
+        }
+    },
+    dataLabels: {
+        enabled: true,
+        offset: -5,
+        style: {
+            fontSize: '11px',
+            fontWeight: 'normal'
+        },
+        formatter: function (val, opts) {
+            const total = stuntingData.reduce((a, b) => a + b, 0);
+            const value = stuntingData[opts.seriesIndex];
+            return `${value} (${val.toFixed(1)}%)`;
+        }
+    },
+    tooltip: {
+        y: {
+            formatter: function (val) {
+                return `${val} keluarga`;
+            }
+        }
+    },
+    plotOptions: {
+        pie: {
+            donut: {
+                size: '55%'
+            }
+        }
+    }
+};
+
+const chartStunting = new ApexCharts(document.querySelector("#chartStunting"), optionsStunting);
+chartStunting.render();
 });
 </script>
 @endsection
