@@ -153,12 +153,12 @@
             activeSection.classList.remove('hidden');
             activeSection.classList.add('fade-in');
 
-            // Tambahkan gradasi warna background
-            activeSection.classList.add(
-                'bg-gradient-to-br',
-                `from-${clr}-100`,
-                `to-${clr}-200`
-            );
+            // // Tambahkan gradasi warna background
+            // activeSection.classList.add(
+            //     'bg-gradient-to-br',
+            //     `from-${clr}-100`,
+            //     `to-${clr}-200`
+            // );
         }
 
         if (activeBtn) {

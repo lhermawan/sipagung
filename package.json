@@ -20,6 +20,7 @@
         "@fontsource/montserrat": "^5.0.18",
         "@fontsource/nunito": "^5.0.18",
         "@fontsource/poppins": "^5.0.14",
+        "@heroicons/vue": "^2.2.0",
         "preline": "^2.7.0"
     }
 }

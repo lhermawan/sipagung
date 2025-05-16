@@ -1,64 +1,55 @@
+<div class="text-center mb-8">
+    <h1 class="text-4xl font-extrabold text-gray-800">
+        RUMAH DATAKU <span class="text-primary">(DATA POTENSI DESA)</span>
+    </h1>
+</div>
 <section class="my-10">
-    <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Rekap Potensi Desa</h2>
+    
 
     @php
         $items = [
-            'Posyandu' => $potensi->posyandu,
-
-            'PKBM' => $potensi->pkbm,
-            'Fasilitas Olahraga' => $potensi->fasilitas_olahraga,
-            'Fasilitas Kesehatan' => $potensi->fasilitas_kesehatan,
-            'Fasilitas Ibadah' => $potensi->fasilitas_ibadah,
-            'Pasar' => $potensi->pasar,
-            'BKB' => $potensi->bkb,
-            'BKR' => $potensi->bkr,
-            'BKL' => $potensi->bkl,
-            'UPPKA' => $potensi->uppka,
-            'PIK-R' => $potensi->pik_r,
-            'Stunting / Gizi Buruk' => $potensi->stunting_gizi_buruk,
-            'Produk Unggulan' => $potensi->produk_unggulan,
-            'Luas Jalan (m)' => $potensi->luas_jalan,
-            'Jumlah RW' => $potensi->j_rw_dusun,
-            'Jumlah RT' => $potensi->j_rt,
-            'Luas Wilayah (km²)' => $potensi->luas_wilayah,
-            'Ketinggian (mdpl)' => $potensi->ketinggian,
-           
+            ['label' => 'Posyandu', 'value' => $potensi->posyandu, 'icon' => 'user-group'],
+            ['label' => 'PKBM', 'value' => $potensi->pkbm, 'icon' => 'chalkboard-user'],
+            ['label' => 'Fasilitas Olahraga', 'value' => $potensi->fasilitas_olahraga, 'icon' => 'person-running'],
+            ['label' => 'Fasilitas Kesehatan', 'value' => $potensi->fasilitas_kesehatan, 'icon' => 'suitcase-medical'],
+            ['label' => 'Fasilitas Ibadah', 'value' => $potensi->fasilitas_ibadah, 'icon' => 'mosque'],
+            ['label' => 'Pasar', 'value' => $potensi->pasar, 'icon' => 'shopping-cart'],
+            ['label' => 'BKB', 'value' => $potensi->bkb, 'icon' => 'person-breastfeeding'],
+            ['label' => 'BKR', 'value' => $potensi->bkr, 'icon' => 'users'],
+            ['label' => 'BKL', 'value' => $potensi->bkl, 'icon' => 'person-cane'],
+            ['label' => 'UPPKA', 'value' => $potensi->uppka, 'icon' => 'chart-simple'],
+            ['label' => 'PIK-R', 'value' => $potensi->pik_r, 'icon' => 'hand-holding-heart'],
+            ['label' => 'Stunting / Gizi Buruk', 'value' => $potensi->stunting_gizi_buruk, 'icon' => 'hands-holding-child'],
+            ['label' => 'Produk Unggulan', 'value' => $potensi->produk_unggulan, 'icon' => 'star'],
+            ['label' => 'Luas Jalan (m)', 'value' => $potensi->luas_jalan, 'icon' => 'road'],
+            ['label' => 'Jumlah RW', 'value' => $potensi->j_rw_dusun, 'icon' => 'house'],
+            ['label' => 'Jumlah RT', 'value' => $potensi->j_rt, 'icon' => 'house'],
+            ['label' => 'Luas Wilayah (km²)', 'value' => $potensi->luas_wilayah, 'icon' => 'map'],
+            ['label' => 'Ketinggian (mdpl)', 'value' => $potensi->ketinggian, 'icon' => 'mountain'],
         ];
     @endphp
-<div class="my-10 px-4">
-
-
+  
+    
+    {{-- Grafik Potensi --}}
     <div class="my-10 px-4">
-        <!-- Grid Container -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Bagian Grafik Penduduk / KK -->
+            {{-- Grafik KK & Penduduk --}}
             <div class="bg-white p-4 rounded shadow">
-                <!-- Judul Grafik Penduduk -->
-                <h2 class="text-xl font-bold mb-4 text-center text-gray-800">
-                    Perbandingan Jumlah KK dan Penduduk per Jenis Kelamin
-                </h2>
-
-                <!-- Keterangan -->
+                <h2 class="text-xl font-bold mb-4 text-center text-gray-800">Perbandingan Jumlah KK dan Penduduk per Jenis Kelamin</h2>
                 <div class="mb-2 text-sm text-gray-600 italic text-center">
                     *Klik tombol di bawah untuk mengganti mode grafik antara <strong>Penduduk</strong> dan <strong>KK</strong>.
                 </div>
-
-                <!-- Tombol Toggle -->
                 <div class="mb-4 text-center">
                     <button id="toggleBtn" onclick="toggleMode()" class="px-4 py-2 bg-blue-600 text-white rounded">
                         Mode: Penduduk
                     </button>
                 </div>
-
-                <!-- Grafik -->
                 <div id="chartUtama"></div>
             </div>
 
-            <!-- Bagian Grafik Fasilitas Pendidikan -->
+            {{-- Grafik Fasilitas Pendidikan --}}
             <div class="bg-white p-4 rounded shadow">
-                <h2 class="text-xl font-bold mb-4 text-center text-gray-800">
-                    Fasilitas Pendidikan per Jenis
-                </h2>
+                <h2 class="text-xl font-bold mb-4 text-center text-gray-800">Fasilitas Pendidikan per Jenis</h2>
                 <div class="mb-2 text-sm text-gray-600 italic text-center">
                     *Klik kategori untuk melihat sebaran fasilitas tersebut di tiap dusun.
                 </div>
@@ -66,15 +57,10 @@
             </div>
         </div>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
-        @foreach($items as $label => $value)
-            <div class="bg-white rounded shadow p-4 border border-gray-200">
-                <div class="text-gray-600 text-sm mb-1">{{ $label }}</div>
-                <div class="text-xl font-semibold text-gray-900">{{ number_format($value) }}</div>
-            </div>
-        @endforeach
-    </div>
+    {{-- Include Komponen Grid Potensi --}}
+    @include('components.grid-potensi', ['items' => $items])
 
+    
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
