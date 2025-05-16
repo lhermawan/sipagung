@@ -85,9 +85,9 @@ Route::get('showcase/lapak', [App\Http\Controllers\showcase\LapakController::cla
 Route::get('showcase/detail_lapak/{item}',[App\Http\Controllers\showcase\LapakController::class, 'detail_lapak']);
 
 Route::get('showcase/berita/berita', [App\Http\Controllers\showcase\BeritaController::class, 'berita'])->name('berita');
-Route::get('showcase/berita/detail_berita/{item}',[App\Http\Controllers\Showcase\BeritaController::class, 'detail_berita']);
-Route::get('showcase/berita/by_category/{kategori}', [App\Http\Controllers\Showcase\BeritaController::class, 'berita_kategori']);
-Route::get('showcase/berita/arsip_berita/{month}/{year}', [App\Http\Controllers\Showcase\BeritaController::class, 'arsip_berita']);
+Route::get('showcase/berita/detail_berita/{item}',[App\Http\Controllers\showcase\BeritaController::class, 'detail_berita']);
+Route::get('showcase/berita/by_category/{kategori}', [App\Http\Controllers\showcase\BeritaController::class, 'berita_kategori']);
+Route::get('showcase/berita/arsip_berita/{month}/{year}', [App\Http\Controllers\showcase\BeritaController::class, 'arsip_berita']);
 
 Route::get('showcase/regulasi', [App\Http\Controllers\showcase\RegulasiController::class, 'index'])->name('regulasi');
 Route::get('showcase/map_desa', [App\Http\Controllers\showcase\MapController::class, 'index'])->name('map');
