@@ -93,6 +93,15 @@ class GuestController extends Controller
         $pus = $data_kuantitas->jumlah_pasangan_usia_subur;
         $wus = $data_kuantitas->jumlah_wanita_usia_subur;
         $demografi = Demografi::find(1);
+        $detail_potensi = RdPotensiDesa::all();
+        // dd($detail_potensi);
+        $total = [
+            'jml_kk_laki' => $detail_potensi->sum('jml_kk_laki'),
+            'jml_kk_perempuan' => $detail_potensi->sum('jml_kk_perempuan'),
+            'j_penduduk_laki' => $detail_potensi->sum('j_penduduk_laki'),
+            'j_penduduk_perempuan' => $detail_potensi->sum('j_penduduk_perempuan'),
+            // tambahkan item lain sesuai kebutuhan
+        ];
         $potensi = RdPotensiDesa::selectRaw('
     SUM(posyandu) as posyandu,
     SUM(tk_ra) as tk_ra,
@@ -117,7 +126,9 @@ class GuestController extends Controller
     SUM(luas_wilayah) as luas_wilayah,
     SUM(ketinggian) as ketinggian,
     SUM(j_penduduk_laki) as j_penduduk_laki,
-    SUM(j_penduduk_perempuan) as j_penduduk_perempuan
+    SUM(j_penduduk_perempuan) as j_penduduk_perempuan,
+    SUM(jml_kk_perempuan) as jml_kk_perempuan,
+    SUM(jml_kk_laki) as jml_kk_laki
 ')->first();
         $migrasiDesa = RdMigrasiDesa::orderBy('tahun', 'asc')->get();
         $perlindunganSosial = RdPerlindunganSosial::first();
@@ -140,6 +151,7 @@ class GuestController extends Controller
             'pus' => $pus,
             'wus' => $wus,
             'demografi' => $demografi,
+            'detail_potensi' => $detail_potensi,
             'potensi' => $potensi,
             'perlindungan' => $perlindunganSosial,
             'administrasiKependudukan' => $administrasiKependudukan,

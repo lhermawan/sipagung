@@ -37,5 +37,7 @@ class RdPotensiDesa extends Model
         'ketinggian',
         'j_penduduk_laki',
         'j_penduduk_perempuan',
+        'jml_kk_laki',
+        'jml_kk_perempuan',
     ];
 }
