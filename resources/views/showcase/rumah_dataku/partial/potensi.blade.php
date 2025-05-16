@@ -4,10 +4,7 @@
     @php
         $items = [
             'Posyandu' => $potensi->posyandu,
-            'TK/RA' => $potensi->tk_ra,
-            'SD' => $potensi->sd,
-            'SMP/Sederajat' => $potensi->smp_sederajat,
-            'SMA' => $potensi->sma,
+
             'PKBM' => $potensi->pkbm,
             'Fasilitas Olahraga' => $potensi->fasilitas_olahraga,
             'Fasilitas Kesehatan' => $potensi->fasilitas_kesehatan,
@@ -25,10 +22,7 @@
             'Jumlah RT' => $potensi->j_rt,
             'Luas Wilayah (km²)' => $potensi->luas_wilayah,
             'Ketinggian (mdpl)' => $potensi->ketinggian,
-            'Penduduk Laki-laki' => $potensi->j_penduduk_laki,
-            'Penduduk Perempuan' => $potensi->j_penduduk_perempuan,
-            'Jumlah KK Perempuan' => $potensi->jml_kk_perempuan,
-            'Jumlah KK Laki-laki' => $potensi->jml_kk_laki,
+           
         ];
     @endphp
 <div class="my-10 px-4">
