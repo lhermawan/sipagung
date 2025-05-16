@@ -11,8 +11,5 @@ export default defineConfig({
     build: {
         outDir: 'public/build',
     },
-    server: {
-        host: true, // Membuka akses ke semua alamat IP
-        port: 5173,
-      },
+    
 });
