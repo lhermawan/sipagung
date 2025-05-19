@@ -47,7 +47,8 @@
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.3.67/css/materialdesignicons.min.css" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
-
+    <link rel="stylesheet" href="{{ asset('build/assets/app-92df87f6.css') }}">
+    <script type="module" src="{{ asset('build/assets/app-e2dbf804.js') }}"></script>
 
 </head>
 
