@@ -14,10 +14,15 @@ use App\Models\RdPerlindunganSosial;
 use App\Models\RdAdministrasiKependudukan;
 use App\Models\RdPembangunanKeluarga;
 use App\Models\RdKualitas;
+use App\Models\Map;
 
 class GuestController extends Controller
 {
 
+    function __construct() {
+        $this->k_desa =env('K_DESA','');
+        $this->m_desa= env('M_DESA');
+    }
     public function index()
     {
         // Ambil data agregat dari DataKuantitas
@@ -95,6 +100,8 @@ class GuestController extends Controller
         $demografi = Demografi::find(1);
         $detail_potensi = RdPotensiDesa::all();
         // dd($detail_potensi);
+$map = Map::where('kode_desa', $this->m_desa )->get();
+// dd($map);
         $total = [
             'jml_kk_laki' => $detail_potensi->sum('jml_kk_laki'),
             'jml_kk_perempuan' => $detail_potensi->sum('jml_kk_perempuan'),
@@ -139,6 +146,7 @@ class GuestController extends Controller
         return view('showcase.rumah_dataku.rumahdataku', [
             'labels' => array_keys($groups),
             'migrasiDesa' => $migrasiDesa,
+            'map' => $map,
             'maleData' => $maleData,
             'femaleData' => $femaleData,
             'jumlah_penduduk' => $jumlah_penduduk,

@@ -12,36 +12,37 @@
     ];
 @endphp
 
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
     @foreach ($items as $i => $item)
-        @php 
-            $clr_potensi = $colors_potensi[$i % count($colors_potensi)];
-            $fromClass = $gradientClasses[$clr_potensi]['from'];
-            $toClass = $gradientClasses[$clr_potensi]['to'];
+        @php
+            $clr = $colors_potensi[$i % count($colors_potensi)];
+            $from = $gradientClasses[$clr]['from'];
+            $to = $gradientClasses[$clr]['to'];
         @endphp
 
-        <div class="relative group overflow-hidden rounded-xl p-4 min-h-[6rem]
-            bg-{{ $clr_potensi }}-100 border border-gray-200 shadow-sm transition-all duration-300
-            hover:shadow-lg hover:scale-[1.03] hover:-translate-y-1 active:scale-95">
+        <div class="relative group overflow-hidden rounded-lg p-4 bg-white border border-gray-200 shadow transition duration-300
+                    hover:shadow-lg hover:scale-[1.02] hover:-translate-y-1 active:scale-95">
 
-            {{-- Hover Shine --}}
-            <span class="absolute top-0 left-0 w-full h-full bg-white opacity-10 transform rotate-45
-                translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-in-out"></span>
+            {{-- Shine Effect --}}
+            <span class="absolute top-0 left-0 w-full h-full bg-white opacity-10 transform rotate-45 translate-x-[-100%]
+                         group-hover:translate-x-[200%] transition-transform duration-1000 ease-in-out"></span>
 
-            {{-- Hover Gradient Overlay --}}
-            <span class="absolute inset-0 w-full h-full group-hover:bg-gradient-to-r {{ $fromClass }} {{ $toClass }} opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+            {{-- Gradient Background on Hover --}}
+            <span class="absolute inset-0 w-full h-full group-hover:bg-gradient-to-r {{ $from }} {{ $to }} opacity-0
+                         group-hover:opacity-100 transition-opacity duration-500 rounded-lg"></span>
 
+            {{-- Content --}}
             <div class="relative z-10 flex items-center space-x-4">
-                <div class="icon text-{{ $clr_potensi }}-600 group-hover:text-white transition duration-300">
-                    <i class="fa-solid fa-{{ $item['icon'] }} fa-lg"></i>
+                <div class="text-{{ $clr }}-600 group-hover:text-white transition duration-300 text-3xl">
+                    <i class="fa-solid fa-{{ $item['icon'] }}"></i>
                 </div>
                 <div>
-                    <div class="text-sm font-medium text-gray-800 group-hover:text-white transition duration-300">
+                    <p class="text-sm text-gray-500 group-hover:text-white transition duration-300">
                         {{ $item['label'] }}
-                    </div>
-                    <div class="text-xl font-bold text-gray-900 group-hover:text-white transition duration-300">
+                    </p>
+                    <p class="text-xl font-semibold text-gray-700 group-hover:text-white transition duration-300">
                         {{ $item['value'] }}
-                    </div>
+                    </p>
                 </div>
             </div>
         </div>

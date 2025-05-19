@@ -4,7 +4,7 @@
     </h1>
 </div>
 <section class="my-10">
-    
+
 
     @php
         $items = [
@@ -28,194 +28,160 @@
             ['label' => 'Ketinggian (mdpl)', 'value' => $potensi->ketinggian, 'icon' => 'mountain'],
         ];
     @endphp
-  
-    
-    {{-- Grafik Potensi --}}
-    <div class="my-10 px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {{-- Grafik KK & Penduduk --}}
-            <div class="bg-white p-4 rounded shadow">
-                <h2 class="text-xl font-bold mb-4 text-center text-gray-800">Perbandingan Jumlah KK dan Penduduk per Jenis Kelamin</h2>
-                <div class="mb-2 text-sm text-gray-600 italic text-center">
-                    *Klik tombol di bawah untuk mengganti mode grafik antara <strong>Penduduk</strong> dan <strong>KK</strong>.
-                </div>
-                <div class="mb-4 text-center">
-                    <button id="toggleBtn" onclick="toggleMode()" class="px-4 py-2 bg-blue-600 text-white rounded">
-                        Mode: Penduduk
-                    </button>
-                </div>
-                <div id="chartUtama"></div>
+
+
+   {{-- Grafik dan Potensi (2 Kolom Besar) --}}
+<div class="max-w-7xl mx-auto px-4 py-10 space-y-8">
+
+        {{-- Grafik Utama --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {{-- Kepala Keluarga --}}
+            <div class="bg-white p-6 rounded-xl shadow flex flex-col items-center justify-center">
+                <h2 class="text-lg font-semibold text-gray-700 mb-2">Jumlah Kepala Keluarga</h2>
+                <div id="chartKK" class="w-full"></div>
+                <div id="kkBreakdown" class="text-sm text-gray-700 font-medium"></div>
+                <p class="text-sm text-gray-500 mt-2">Distribusi berdasarkan jenis kelamin</p>
             </div>
 
-            {{-- Grafik Fasilitas Pendidikan --}}
-            <div class="bg-white p-4 rounded shadow">
-                <h2 class="text-xl font-bold mb-4 text-center text-gray-800">Fasilitas Pendidikan per Jenis</h2>
-                <div class="mb-2 text-sm text-gray-600 italic text-center">
-                    *Klik kategori untuk melihat sebaran fasilitas tersebut di tiap dusun.
+            {{-- Penduduk --}}
+            <div class="bg-white p-6 rounded-xl shadow flex flex-col items-center justify-center">
+                <h2 class="text-lg font-semibold text-gray-700 mb-2">Jumlah Penduduk</h2>
+                <div id="chartPenduduk" class="w-full"></div>
+                <div id="pendudukBreakdown" class="text-sm text-gray-700 font-medium"></div>
+            </div>
+
+            {{-- Luas Wilayah --}}
+            <div class="bg-teal-600 text-white p-6 rounded-xl shadow flex flex-col justify-between">
+                <div>
+                    <h2 class="text-lg font-bold">Luas Wilayah</h2>
+                    <div id="map" class="rounded-lg shadow" ></div>
+                    @include('showcase.mapjs')
+                    <div class="text-4xl font-bold mt-4">{{ $potensi->luas_wilayah ?? '151' }} <span class="text-xl">km²</span></div>
+                    <a href="https://maps.app.goo.gl/z48iAxa85jv13EFn8" target="_blank"><button class="bg-white text-teal-600 px-3 py-1 text-sm rounded mt-2">Lihat Peta</button>
+                    </a>
                 </div>
-                <div id="chartFasilitas"></div>
+
+            </div>
+        </div>
+
+        {{-- Grafik Pendidikan + Grid Potensi --}}
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-xl shadow flex flex-col items-center justify-center">
+                <h2 class="text-lg font-semibold text-gray-700 mb-4">Fasilitas Pendidikan</h2>
+                <div class="mb-2 text-sm text-gray-500 italic text-center">*Klik kategori untuk lihat detail sebaran di dusun.</div>
+                <div id="chartFasilitas" class="w-full"></div>
+            </div>
+
+            <div>
+                @include('components.grid-potensi', ['items' => $items])
             </div>
         </div>
     </div>
-    {{-- Include Komponen Grid Potensi --}}
-    @include('components.grid-potensi', ['items' => $items])
 
-    
+
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script>
-    const dusunData = @json($detail_potensi); // dari controller
+    const totalKK_L = {{ $potensi->jml_kk_laki ?? 0 }};
+    const totalKK_P = {{ $potensi->jml_kk_perempuan ?? 0 }};
+    const totalKK = totalKK_L + totalKK_P;
 
-    let currentMode = 'penduduk';
-    let chartUtama;
+    const totalPenduduk_L = {{ $potensi->j_penduduk_laki ?? 0 }};
+    const totalPenduduk_P = {{ $potensi->j_penduduk_perempuan ?? 0 }};
+    const totalPenduduk = totalPenduduk_L + totalPenduduk_P;
 
-    function toggleMode() {
-    // Toggle antara penduduk dan kk
-    currentMode = currentMode === 'penduduk' ? 'kk' : 'penduduk';
+    document.addEventListener("DOMContentLoaded", () => {
+        renderDoubleRadial('chartKK', totalKK_L, totalKK_P, '');
+        renderDoubleRadial('chartPenduduk', totalPenduduk_L, totalPenduduk_P, '');
+    });
 
-    // Update tampilan tombol
-    const btn = document.getElementById("toggleBtn");
-    btn.innerText = `Mode: ${capitalize(currentMode)}`;
-    btn.className = currentMode === 'penduduk'
-        ? 'px-4 py-2 bg-blue-600 text-white rounded mb-4'
-        : 'px-4 py-2 bg-green-600 text-white rounded mb-4';
+    function renderDoubleRadial(targetId, male, female, label) {
+        const total = male + female;
 
-    // Render ulang grafik berdasarkan mode
-    renderMainChart();
-}
-
-function capitalize(text) {
-    return text.charAt(0).toUpperCase() + text.slice(1);
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-    renderMainChart();
-});
-    const warna = {
-        penduduk: ['#3b82f6', '#ec4899'],
-        kk: ['#10b981', '#f59e0b']
-    };
-
-    const categories = dusunData.map(d => d.dusun);
-
-    const getSeriesData = () => {
-        if (currentMode === 'penduduk') {
-            return dusunData.map(d => (d.j_penduduk_laki || 0) + (d.j_penduduk_perempuan || 0));
-        } else {
-            return dusunData.map(d => (d.jml_kk_laki || 0) + (d.jml_kk_perempuan || 0));
-        }
-    };
-
-    const getDetailData = (dusun) => {
-        if (currentMode === 'penduduk') {
-            return [dusun.j_penduduk_laki || 0, dusun.j_penduduk_perempuan || 0];
-        } else {
-            return [dusun.jml_kk_laki || 0, dusun.jml_kk_perempuan || 0];
-        }
-    };
-
-    const getDetailLabel = () => {
-        return currentMode === 'penduduk' ? ['Laki-laki', 'Perempuan'] : ['KK Laki-laki', 'KK Perempuan'];
-    };
-
-    const renderMainChart = () => {
         const options = {
             chart: {
-                type: 'bar',
-                height: 300,
-                toolbar: { show: false },
-                events: {
-                    dataPointSelection: function (event, chartContext, config) {
-                        const index = config.dataPointIndex;
-                        const dusun = dusunData[index];
-                        showDetail(dusun);
+                height: 400,
+                type: 'radialBar',
+            },
+            series: [Math.round((male / total) * 100), Math.round((female / total) * 100)],
+            labels: ['Laki-laki', 'Perempuan'],
+            plotOptions: {
+                radialBar: {
+                    offsetY: 0,
+                    startAngle: 0,
+                    endAngle: 360,
+                    hollow: {
+                        margin: 10,
+                        size: '30%',
+                        background: 'transparent',
+                    },
+                    track: {
+                        background: '#f0f0f0',
+                        strokeWidth: '100%',
+                    },
+                    dataLabels: {
+                        name: {
+                            show: true,
+                            fontSize: '12px',
+                        },
+                        value: {
+                            show: true,
+                            fontSize: '16px',
+                            formatter: function (val, opts) {
+                                const raw = opts.seriesIndex === 0 ? male : female;
+                                return `${raw} (${val}%)`;
+                            }
+                        },
+                        total: {
+                            show: true,
+                            label: `Total ${label}`,
+                            formatter: function () {
+                                return total + ' Orang';
+                            }
+                        }
                     }
                 }
             },
-            series: [{
-                name: currentMode === 'penduduk' ? 'Total Penduduk' : 'Total KK',
-                data: getSeriesData()
-            }],
-            xaxis: { categories },
-            plotOptions: {
-                bar: {
-                    horizontal: false,
-                    columnWidth: '55%',
-                    distributed: true
-                }
-            },
-            colors: warna[currentMode],
-            dataLabels: { enabled: true },
-            title: {
-                text: `Jumlah ${currentMode === 'penduduk' ? 'Penduduk' : 'KK'} per Dusun (Klik untuk Detail)`,
-                align: 'center'
+            colors: ['#3b82f6', '#ec4899'],
+            legend: {
+                show: false,
+                position: 'bottom'
             }
         };
-
-        if (chartUtama) chartUtama.destroy();
-        chartUtama = new ApexCharts(document.querySelector("#chartUtama"), options);
-        chartUtama.render();
-    };
-
-    const showDetail = (dusun) => {
-    const detailData = getDetailData(dusun);
-    const label = getDetailLabel();
-
-    const options = {
-        chart: {
-            type: 'pie',
-            height: 400,
-            toolbar: {
-                show: true,
-                tools: {
-                    customIcons: [{
-                        icon: '<span style="cursor:pointer;">⬅️</span>',
-                        index: -1,
-                        title: 'Kembali',
-                        class: 'back-button',
-                        click: function () {
-                            renderMainChart();
-                        }
-                    }]
-                }
-            }
-        },
-        labels: label,
-        series: detailData,
-        colors: warna[currentMode],
-        title: {
-            text: `Rincian ${currentMode === 'penduduk' ? 'Penduduk' : 'KK'} di Dusun ${dusun.dusun}`,
-            align: 'center'
-        },
-        legend: {
-            position: 'bottom'
-        },
-        dataLabels: {
-            dropShadow: {
-                enabled: true
-            },
-            enabled: true,
-            textAnchor: 'middle',
-            formatter: function (val, opts) {
-                return opts.w.globals.labels[opts.seriesIndex] + ': ' + Math.round(val) + '%';
-            }
-        }
-    };
-
-    chartUtama.destroy();
-    chartUtama = new ApexCharts(document.querySelector("#chartUtama"), options);
-    chartUtama.render();
-};
-
-    function setMode(mode) {
-        currentMode = mode;
-        renderMainChart();
+if (targetId === 'chartKK') {
+    renderBreakdown('kkBreakdown', male, female);
+} else if (targetId === 'chartPenduduk') {
+    renderBreakdown('pendudukBreakdown', male, female);
+}
+        const chart = new ApexCharts(document.querySelector(`#${targetId}`), options);
+        chart.render();
     }
 
-    // Init pertama
-    renderMainChart();
-    </script>
+    function renderBreakdown(containerId, male, female) {
+    const total = male + female;
+    const malePercent = Math.round((male / total) * 100);
+    const femalePercent = Math.round((female / total) * 100);
+
+      document.getElementById(containerId).innerHTML = `
+        <div class="flex justify-center items-center gap-8" style="margin-top: 0.5rem;">
+            <div class="flex flex-col items-center">
+                <i class="mdi mdi-gender-male text-blue-600 text-3xl mb-1"></i>
+                <span class="text-gray-700 text-sm font-medium">Laki-laki</span>
+                <span class="text-lg font-semibold text-gray-800">${male}</span>
+                <span class="text-xs text-gray-500">${malePercent}%</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <i class="mdi mdi-gender-female text-pink-500 text-3xl mb-1"></i>
+                <span class="text-gray-700 text-sm font-medium">Perempuan</span>
+                <span class="text-lg font-semibold text-gray-800">${female}</span>
+                <span class="text-xs text-gray-500">${femalePercent}%</span>
+            </div>
+        </div>
+    `;
+}
+</script>
+
 
 <script>
     const dataFasilitas = @json($detail_potensi); // dari Laravel
