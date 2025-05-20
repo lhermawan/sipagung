@@ -33,6 +33,7 @@ class DataKuantitas extends Model
 
         // Opsional
         'periode',
+        'sumber',
         'wilayah_id',
     ];
 

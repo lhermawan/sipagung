@@ -1,7 +1,7 @@
 <section class="">
     <div class="text-center mb-8">
         <h1 class="text-4xl font-extrabold text-gray-800">
-            RUMAH DATAKU <span class="text-primary">(DATA KUANTITAS)</span>
+            RUMAH DATAKU <span class="text-primary">(DATA KUANTITAS)  </span> <br>TAHUN {{ \Carbon\Carbon::parse($data_kuantitas->periode)->format('Y') }}
         </h1>
     </div>
 
@@ -25,7 +25,7 @@
                     </svg>
                 </div>
                 <p class="text-sm text-gray-500 mb-1">Jumlah Pasangan Usia Subur (PUS)</p>
-                <p class="text-3xl font-extrabold text-indigo-600">{{ $wus }}</p>
+                <p class="text-3xl font-extrabold text-indigo-600">{{ $pus }} </p>
             </div>
         </div>
 
@@ -44,6 +44,7 @@
             </div>
         </div>
     </div>
+    <p class="text-xl font-extrabold text-gray-500 mb-1">SUMBER DATA : {{ $data_kuantitas->sumber }}</p>
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>

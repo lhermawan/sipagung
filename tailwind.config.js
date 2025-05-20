@@ -69,6 +69,15 @@ export default {
                 cardhover3: "#0c877b",
                 cardhover4: "#0d8f82",
             },
+            animation: {
+        'fade-up': 'fadeUp 1s ease-out',
+      },
+      keyframes: {
+        fadeUp: {
+          '0%': { opacity: 0, transform: 'translateY(20px)' },
+          '100%': { opacity: 1, transform: 'translateY(0)' },
+        },
+      },
         },
     },
     plugins: [require("flowbite/plugin"), require("preline/plugin")],

@@ -102,13 +102,7 @@ class GuestController extends Controller
         // dd($detail_potensi);
 $map = Map::where('kode_desa', $this->m_desa )->get();
 // dd($map);
-        $total = [
-            'jml_kk_laki' => $detail_potensi->sum('jml_kk_laki'),
-            'jml_kk_perempuan' => $detail_potensi->sum('jml_kk_perempuan'),
-            'j_penduduk_laki' => $detail_potensi->sum('j_penduduk_laki'),
-            'j_penduduk_perempuan' => $detail_potensi->sum('j_penduduk_perempuan'),
-            // tambahkan item lain sesuai kebutuhan
-        ];
+
         $potensi = RdPotensiDesa::selectRaw('
     SUM(posyandu) as posyandu,
     SUM(tk_ra) as tk_ra,
@@ -165,6 +159,7 @@ $map = Map::where('kode_desa', $this->m_desa )->get();
             'administrasiKependudukan' => $administrasiKependudukan,
             'pembangunanKeluarga' => $pembangunanKeluarga,
             'data' => $kualitas,
+            'data_kuantitas' => $data_kuantitas,
         ]);
     }
 
