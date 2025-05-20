@@ -32,8 +32,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="/assets/img/mountain.png" type="image/x-icon" />
-    <link rel="stylesheet" href="{{ asset('build/assets/app-a0747cb1.css') }}">
-    <script type="module" src="{{ asset('build/assets/app-d1c370f5.js') }}"></script>
+
     @vite('resources/css/app.css')
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
