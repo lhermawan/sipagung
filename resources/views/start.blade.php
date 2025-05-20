@@ -330,7 +330,7 @@
 
                 <!-- Text Overlay -->
                 <div class="absolute bottom-0 left-0 w-full p-6 bg-transparent text-white font-poppins">
-                    <a href="/showcase/berita/{{ $beritaTerbaru->id }}">
+                    <a href="/showcase/berita/detail_berita/{{ $beritaTerbaru->title_slug }}">
                         <h3 class="text-xl md:text-2xl font-semibold">{{ $beritaTerbaru->title }}:</h3>
                         <p class="hidden md:block text-sm md:text-lg">
                             {{ Str::limit($beritaTerbaru->title, 35, '...') }}</p>
