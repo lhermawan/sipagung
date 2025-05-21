@@ -1,6 +1,6 @@
 <div class="text-center mb-8">
     <h1 class="text-4xl font-extrabold text-gray-800">
-        RUMAH DATAKU <span class="text-primary">(DATA ADMINISTRASI KEPENDUDUKAN)</span>
+        RUMAH DATAKU <span class="text-primary">(DATA ADMINISTRASI KEPENDUDUKAN)</span><br>TAHUN {{ \Carbon\Carbon::parse($administrasiKependudukan->periode)->format('Y') }}
     </h1>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
@@ -24,4 +24,6 @@
             {{ $administrasiKependudukan->t_memiliki_akte_nikah ?? 0 }}
         </p>
     </div>
+
 </div>
+<p class="text-xl font-extrabold text-gray-500 mb-1">SUMBER DATA : {{ $administrasiKependudukan->sumber }}</p>

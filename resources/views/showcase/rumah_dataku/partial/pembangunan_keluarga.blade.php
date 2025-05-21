@@ -1,6 +1,6 @@
 <div class="text-center mb-8">
     <h1 class="text-4xl font-extrabold text-gray-800">
-        RUMAH DATAKU <span class="text-primary">(DATA PEMBANGUNAN KELUARGA)</span>
+        RUMAH DATAKU <span class="text-primary">(DATA PEMBANGUNAN KELUARGA)</span> </br>TAHUN {{ date('Y') - 1 }}
     </h1>
 </div>
 
@@ -16,6 +16,7 @@
             ];
             $keys = array_keys($programs);
             $dusuns = $pembangunanKeluarga->pluck('dusun')->toArray();
+
         @endphp
 
         @foreach ($programs as $program => $fields)
@@ -32,10 +33,13 @@
                     <div id="chart-{{ strtolower($program) }}"></div>
                 </div>
             </div>
+
         @endforeach
     </div>
 
+
     <div class="text-center mt-8">
+<p class="text-xl font-extrabold text-gray-500 mb-1">SUMBER DATA: {{ implode(', ', $pembangunanKeluarga->pluck('sumber')->unique()->toArray()) }}</p>
         <p class="text-gray-500">© {{ date('Y') }} Rumah Dataku</p>
     </div>
 </div>

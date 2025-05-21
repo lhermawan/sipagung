@@ -1,6 +1,6 @@
 <div class="text-center mb-8">
     <h1 class="text-4xl font-extrabold text-gray-800">
-        RUMAH DATAKU <span class="text-primary">(DATA PERLINDUNGAN SOSIAL)</span>
+        RUMAH DATAKU <span class="text-primary">(DATA PERLINDUNGAN SOSIAL)</span><br>TAHUN {{ \Carbon\Carbon::parse($perlindungan->periode)->format('Y') }}
     </h1>
 </div>
 <div class="bg-white rounded-xl p-6 shadow-sm">
@@ -28,4 +28,5 @@
     @else
         <p class="text-gray-500">Data belum tersedia.</p>
     @endif
+    <p class="text-xl font-extrabold text-gray-500 mb-1">SUMBER DATA : {{ $perlindungan->sumber }}</p>
 </div>

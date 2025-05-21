@@ -1,6 +1,6 @@
 <div class="text-center mb-8">
     <h1 class="text-4xl font-extrabold text-gray-800">
-        RUMAH DATAKU <span class="text-primary">(DATA POTENSI DESA)</span>
+        RUMAH DATAKU <span class="text-primary">(DATA POTENSI DESA)</span></br>TAHUN {{ date('Y') - 1 }}
     </h1>
 </div>
 <section class="my-10">
@@ -51,7 +51,7 @@
             </div>
 
             {{-- Luas Wilayah --}}
-            <div class="e-card playing text-white p-6 rounded-xl shadow flex flex-col justify-between ">
+            <div class="e-card playing text-white p-6 sm:p-4 rounded-xl shadow flex flex-col justify-between h-auto min-h-[400px] sm:min-h-[300px] overflow-visible">
 
 
   <div class="wave"></div>
@@ -104,10 +104,12 @@
 
             <div>
                 @include('components.grid-potensi', ['items' => $items])
+
+
             </div>
         </div>
+        <p class="text-xl font-extrabold text-gray-500 mb-1">SUMBER DATA: {{ $detail_potensi->pluck('sumber')->filter()->unique()->implode(', ') }}</p>
     </div>
-
 
 </section>
 

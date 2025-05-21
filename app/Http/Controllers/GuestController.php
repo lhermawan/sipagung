@@ -136,10 +136,15 @@ $map = Map::where('kode_desa', $this->m_desa )->get();
         $administrasiKependudukan = RdAdministrasiKependudukan::first();
         $pembangunanKeluarga = RdPembangunanKeluarga::all();
         $kualitas = RdKualitas::all();
+$periodeList = $kualitas->pluck('periode')->unique()->sort()->values();
+$sumberList = $kualitas->pluck('sumber')->unique()->sort()->values();
+        // @dd($grouped);
         // Kirim data ke view
         return view('showcase.rumah_dataku.rumahdataku', [
             'labels' => array_keys($groups),
             'migrasiDesa' => $migrasiDesa,
+            'periodeList' => $periodeList,
+            'sumberList' => $sumberList,
             'map' => $map,
             'maleData' => $maleData,
             'femaleData' => $femaleData,
@@ -159,6 +164,7 @@ $map = Map::where('kode_desa', $this->m_desa )->get();
             'administrasiKependudukan' => $administrasiKependudukan,
             'pembangunanKeluarga' => $pembangunanKeluarga,
             'data' => $kualitas,
+
             'data_kuantitas' => $data_kuantitas,
         ]);
     }

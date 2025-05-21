@@ -1,8 +1,21 @@
 <div class="text-center mb-8">
     <h1 class="text-4xl font-extrabold text-gray-800">
-        RUMAH DATAKU <span class="text-primary">(DATA KUALITAS)</span>
+        RUMAH DATAKU <span class="text-primary">(DATA KUALITAS)</span></br>
+
+    @foreach ($periodeList as $periode)
+           TAHUN {{ \Carbon\Carbon::parse($periode)->format('Y')}}
+        @endforeach
     </h1>
 </div>
+
+
+    {{-- <select id="filterSumber" class="border rounded px-2 py-1">
+        <option value="">Semua Sumber</option>
+        @foreach ($sumberList as $sumber)
+            <option value="{{ $sumber }}">{{ $sumber }}</option>
+        @endforeach
+    </select> --}}
+
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
     {{-- 1. Jumlah PUS Menurut Usia Kawin Pertama --}}
@@ -36,6 +49,9 @@
     </div>
 </div>
 
+@foreach ($sumberList as $sumber)
+            <p class="text-xl font-extrabold text-gray-500 mb-1">SUMBER DATA : {{ $sumber }}</p>
+        @endforeach
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script>

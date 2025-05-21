@@ -42,7 +42,7 @@
     <div class="flex justify-center md:justify-end md:-ml-16 px-4 md:px-0">
         <img src="{{ asset('images/illustration.png') }}"
             alt="Ilustrasi Rumah DataKu"
-            class="w-full max-w-lg animate-fade-up"
+            class="w-full max-w-lg transition-transform duration-[2000ms] transform p-14 hover:scale-110 cursor-pointer"
         >
     </div>
 </section>
@@ -67,7 +67,7 @@
     </div>
     <!-- Column 3: Logo -->
     <div class="flex items-center justify-center px-6 py-6">
-        <img src="{{ asset('assets/img/rumah-dataku.png') }}" alt="Logo Rumah DataKu" class="w-36 md:w-40">
+        <img src="{{ asset('assets/img/rumah-dataku.png') }}" alt="Logo Rumah DataKu" class="w-40 md:w-50 transition-transform duration-[2000ms] transform p-14 hover:scale-110 cursor-pointer">
     </div>
 
 </section>
