@@ -51,7 +51,7 @@
             </div>
 
             {{-- Luas Wilayah --}}
-            <div class="e-card playing text-white p-6 sm:p-4 rounded-xl shadow flex flex-col justify-between h-auto min-h-[400px] sm:min-h-[300px] overflow-visible">
+            <div class="e-card playing text-white p-6 rounded-xl shadow flex flex-col items-center justify-center">
 
 
   <div class="wave"></div>
@@ -124,19 +124,24 @@
     const totalPenduduk = totalPenduduk_L + totalPenduduk_P;
 
     document.addEventListener("DOMContentLoaded", () => {
-        renderDoubleRadial('chartKK', totalKK_L, totalKK_P, '');
-        renderDoubleRadial('chartPenduduk', totalPenduduk_L, totalPenduduk_P, '');
+        renderDoubleRadial('chartKK', totalKK_L, totalKK_P, 'KK');
+        renderDoubleRadial('chartPenduduk', totalPenduduk_L, totalPenduduk_P, 'Penduduk');
     });
 
     function renderDoubleRadial(targetId, male, female, label) {
         const total = male + female;
+        const malePercent = ((male / total) * 100).toFixed(2);
+        const femalePercent = ((female / total) * 100).toFixed(2);
+        const originalData = [male, female]; // data asli jumlah laki dan perempuan
 
         const options = {
             chart: {
                 height: 400,
                 type: 'radialBar',
+                // simpan originalData supaya bisa diakses tooltip.custom
+                customData: originalData,
             },
-            series: [Math.round((male / total) * 100), Math.round((female / total) * 100)],
+           series: [parseFloat(malePercent), parseFloat(femalePercent)],
             labels: ['Laki-laki', 'Perempuan'],
             plotOptions: {
                 radialBar: {
@@ -161,7 +166,8 @@
                             show: true,
                             fontSize: '16px',
                             formatter: function (val, opts) {
-                                const raw = opts.seriesIndex === 0 ? male : female;
+                                // ambil jumlah asli dari originalData
+                                const raw = w.config.chart.customData[seriesIndex];
                                 return `${raw} (${val}%)`;
                             }
                         },
@@ -176,43 +182,59 @@
                 }
             },
             colors: ['#3b82f6', '#ec4899'],
+            tooltip: {
+                enabled: true,
+                custom: function({ series, seriesIndex, w }) {
+                    const label = w.globals.labels[seriesIndex];
+                    // ambil jumlah asli dari customData
+                    const value = w.config.chart.customData[seriesIndex];
+                    const percent = series[seriesIndex];
+                    return `<div class="px-3 py-2 text-sm">
+                        <strong>${label}</strong><br>
+                        Jumlah: ${value}<br>
+                        Persen: ${percent}%
+                    </div>`;
+                }
+            },
             legend: {
-                show: false,
-                position: 'bottom'
+                show: false
             }
         };
-if (targetId === 'chartKK') {
-    renderBreakdown('kkBreakdown', male, female);
-} else if (targetId === 'chartPenduduk') {
-    renderBreakdown('pendudukBreakdown', male, female);
-}
+
+        if (targetId === 'chartKK') {
+            renderBreakdown('kkBreakdown', male, female);
+        } else if (targetId === 'chartPenduduk') {
+            renderBreakdown('pendudukBreakdown', male, female);
+        }
+
         const chart = new ApexCharts(document.querySelector(`#${targetId}`), options);
         chart.render();
     }
 
     function renderBreakdown(containerId, male, female) {
-    const total = male + female;
-    const malePercent = Math.round((male / total) * 100);
-    const femalePercent = Math.round((female / total) * 100);
+        const total = male + female;
+        const malePercent = ((male / total) * 100).toFixed(2);
+        const femalePercent = ((female / total) * 100).toFixed(2);
 
-      document.getElementById(containerId).innerHTML = `
-        <div class="flex justify-center items-center gap-8" style="margin-top: 0.5rem;">
-            <div class="flex flex-col items-center">
-                <i class="mdi mdi-gender-male text-blue-600 text-3xl mb-1"></i>
-                <span class="text-gray-700 text-sm font-medium">Laki-laki</span>
-                <span class="text-lg font-semibold text-gray-800">${male}</span>
-                <span class="text-xs text-gray-500">${malePercent}%</span>
+        document.getElementById(containerId).innerHTML = `
+            <div class="flex justify-center items-center gap-8 mt-2">
+                <div class="flex flex-col items-center">
+                    <i class="mdi mdi-gender-male text-blue-600 text-3xl mb-1"></i>
+                    <span class="text-gray-700 text-sm font-medium">Laki-laki</span>
+                    <span class="text-lg font-semibold text-gray-800">${male}</span>
+                    <span class="text-xs text-gray-500">${malePercent}%</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <i class="mdi mdi-gender-female text-pink-500 text-3xl mb-1"></i>
+                    <span class="text-gray-700 text-sm font-medium">Perempuan</span>
+                    <span class="text-lg font-semibold text-gray-800">${female}</span>
+                    <span class="text-xs text-gray-500">${femalePercent}%</span>
+                </div>
             </div>
-            <div class="flex flex-col items-center">
-                <i class="mdi mdi-gender-female text-pink-500 text-3xl mb-1"></i>
-                <span class="text-gray-700 text-sm font-medium">Perempuan</span>
-                <span class="text-lg font-semibold text-gray-800">${female}</span>
-                <span class="text-xs text-gray-500">${femalePercent}%</span>
-            </div>
-        </div>
-    `;
-}
+        `;
+    }
 </script>
+
 
 
 <script>
