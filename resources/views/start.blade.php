@@ -422,87 +422,21 @@
 
                     <div class="flex space-x-8 md:px-5">
                         <!-- Aparatur Item -->
+                        @foreach ($data["pegawaidesa"]["data"] as $pegawai)
                         <div class="relative w-56 flex-shrink-0">
-                            <img src="./assets/img/aparat-desa/haris2.png" alt="Foto Aparatur"
+                            <img src="{{ $link }}/data/foto/pegawai/{{ $pegawai['foto_pegawai'] }}"
+                    alt="{{ $pegawai['nama_lengkap'] }}"
                                 class="w-full h-72 object-cover rounded-lg hover:brightness-75 transition-all duration-[1200ms] transform hover:scale-110">
-                            <div
-                                class="absolute bottom-0 left-0 right-0 bg-transparent bg-opacity-50 text-white p-4 text-center">
-                                <h3 class="text-xl font-semibold">Mokhamad Haris Nasution</h3>
-                                <p>Kepala Desa</p>
-                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-4">
+    <div class="bg-black bg-opacity-50 rounded-md text-white text-center p-3">
+        <h3 class="text-xl font-semibold ">{{ $pegawai['nama_lengkap'] }}</h3>
+        <p class="text-blue-300">{{ $pegawai['jabatan'] }}</p>
+    </div>
+</div>
                         </div>
-                        <!-- Aparatur Item -->
-                        <div class="relative w-56 flex-shrink-0">
-                            <img src="./assets/img/aparat-desa/didin2.png" alt="Foto Aparatur"
-                                class="w-full h-72 object-cover rounded-lg hover:brightness-75 transition-all duration-[1200ms] transform hover:scale-110">
-                            <div
-                                class="absolute bottom-0 left-0 right-0 bg-transparent bg-opacity-50 text-white p-4 text-center">
-                                <h3 class="text-xl font-semibold">Didin</h3>
-                                <p>Sekretaris</p>
-                            </div>
-                        </div>
-                        <!-- Aparatur Item -->
-                        <div class="relative w-56 flex-shrink-0">
-                            <img src="./assets/img/aparat-desa/ina2.png" alt="Foto Aparatur"
-                                class="w-full h-72 object-cover rounded-lg hover:brightness-75 transition-all duration-[1200ms] transform hover:scale-110">
-                            <div
-                                class="absolute bottom-0 left-0 right-0 bg-transparent bg-opacity-50 text-white p-4 text-center">
-                                <h3 class="text-xl font-semibold">Ina Rodiah</h3>
-                                <p>Keuangan</p>
-                            </div>
-                        </div>
-                        <!-- Aparatur Item -->
-                        <div class="relative w-56 flex-shrink-0">
-                            <img src="./assets/img/aparat-desa/enok2.png" alt="Foto Aparatur"
-                                class="w-full h-72 object-cover rounded-lg hover:brightness-75 transition-all duration-[1200ms] transform hover:scale-110">
-                            <div
-                                class="absolute bottom-0 left-0 right-0 bg-transparent bg-opacity-50 text-white p-4 text-center">
-                                <h3 class="text-xl font-semibold">Enok Sopiatul Hasanah</h3>
-                                <p>Perencanaan</p>
-                            </div>
-                        </div>
-                        <!-- Aparatur Item -->
-                        <div class="relative w-56 flex-shrink-0">
-                            <img src="./assets/img/herdi.png" alt="Gambar tidak tersedia"
-                                class="w-full h-72 object-cover rounded-lg hover:brightness-75 transition-all duration-[1200ms] transform hover:scale-110"
-                                onerror="this.src='./assets/img/no-image.jpg';" />
+                        @endforeach
 
-                            <div
-                                class="absolute bottom-0 left-0 right-0 bg-transparent bg-opacity-50 text-white p-4 text-center">
-                                <h3 class="text-xl font-semibold">Herdi Wahyudin</h3>
-                                <p>Umum</p>
-                            </div>
-                        </div>
-                        <!-- Aparatur Item -->
-                        <div class="relative w-56 flex-shrink-0">
-                            <img src="./assets/img/aparat-desa/nana2.png" alt="Foto Aparatur"
-                                class="w-full h-72 object-cover rounded-lg hover:brightness-75 transition-all duration-[1200ms] transform hover:scale-110">
-                            <div
-                                class="absolute bottom-0 left-0 right-0 bg-transparent bg-opacity-50 text-white p-4 text-center">
-                                <h3 class="text-xl font-semibold">Nana</h3>
-                                <p>Pemerintahan</p>
-                            </div>
-                        </div>
-                        <!-- Aparatur Item -->
-                        <div class="relative w-56 flex-shrink-0">
-                            <img src="./assets/img/aparat-desa/parid2.png" alt="Foto Aparatur"
-                                class="w-full h-72 object-cover rounded-lg hover:brightness-75 transition-all duration-[1200ms] transform hover:scale-110">
-                            <div
-                                class="absolute bottom-0 left-0 right-0 bg-transparent bg-opacity-50 text-white p-4 text-center">
-                                <h3 class="text-xl font-semibold">Parid Hasanudin, ST</h3>
-                                <p>Pelayanan</p>
-                            </div>
-                        </div>
-                        <!-- Aparatur Item -->
-                        <div class="relative w-56 flex-shrink-0">
-                            <img src="./assets/img/aparat-desa/edi2.png" alt="Foto Aparatur"
-                                class="w-full h-72 object-cover rounded-lg hover:brightness-75 transition-all duration-[1200ms] transform hover:scale-110">
-                            <div
-                                class="absolute bottom-0 left-0 right-0 bg-transparent bg-opacity-50 text-white p-4 text-center">
-                                <h3 class="text-xl font-semibold">Edi Junaedi</h3>
-                                <p>Kesejahteraan</p>
-                            </div>
-                        </div>
+
                     </div>
 
 

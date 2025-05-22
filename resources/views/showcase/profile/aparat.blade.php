@@ -8,7 +8,7 @@
             Aparatur <span class="text-blue-600">Desa</span>
         </h1>
     </div>
-
+ 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-20 mt-6">
         @foreach ($data["pegawaidesa"]["data"] as $pegawai)
             <div class="bg-white shadow-lg rounded-2xl overflow-hidden hover:shadow-2xl transform hover:scale-105 transition duration-300">

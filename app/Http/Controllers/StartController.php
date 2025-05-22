@@ -6,6 +6,7 @@ use App\Models\{Penduduk, Disabilitas, Sejarah, Lapakdesa, Berita};
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class StartController extends Controller
 {
@@ -49,9 +50,37 @@ class StartController extends Controller
 
         $lapakdesas = Lapakdesa::all();
         // $beritaTerbaru = Berita::orderBy('tanggal', 'desc')->first();
+ $url='/api/ciamis/pegawaidesa/';
+        $host=$this->e_host.$url;
 
+        $response = Http::withHeaders([
+            'C-KEY' => $this->api_key
+        ])->GET($host, [
+            'id_skpd' => $this->id_desa,
+        ]);
+
+
+
+
+        $a = json_decode($response->body(), true);
+        $data['pegawaidesa'] = $a;
+
+        $url2='/api/ciamis/siskedes/';
+        $host2=$this->e_host.$url2;
+
+        $link = $this->e_host;
+        $r_siskedes = Http::withHeaders([
+            'C-KEY' => $this->api_key
+        ])->GET($host2, [
+            'kd_desa' => $this->kd_desa,
+        ]);
+
+        $dt_desa = json_decode($r_siskedes->body(), true);
+        $data['datadesa'] = $dt_desa;
         return view('start', [
             'penduduk' => $penduduk,
+            'data' => $data,
+            'link' => $link,
             // 'disabilitas' => $disabilitas,
             'pekerjaanCount' => $pekerjaanCount,
             'jumlahKeluarga' => $jumlahKeluarga,
