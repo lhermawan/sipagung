@@ -67,7 +67,7 @@
     </div>
     <!-- Column 3: Logo -->
     <div class="flex items-center justify-center px-6 py-6">
-        <img src="{{ asset('assets/img/rumah-dataku.png') }}" alt="Logo Rumah DataKu" class="w-40 md:w-50 transition-transform duration-[2000ms] transform p-14 hover:scale-110 cursor-pointer">
+        <img src="{{ asset('assets/img/rumah-dataku.png') }}" alt="Logo Rumah DataKu" class="w-full h-64 object-contain md:w-50 transition-transform duration-[2000ms] transform p-14 hover:scale-110 cursor-pointer">
     </div>
 
 </section>
@@ -84,7 +84,7 @@
                 ['id' => 'administrasi_kependudukan', 'label' => 'DATA ADMINISTRASI KEPENDUDUKAN', 'icon' => 'mdi-file-document', 'color' => 'indigo'],
                 ['id' => 'pembangunan_keluarga', 'label' => 'DATA PEMBANGUNAN KELUARGA', 'icon' => 'mdi-home-group', 'color' => 'orange'],
                 ['id' => 'potensi', 'label' => 'DATA POTENSI DESA', 'icon' => 'mdi-chart-tree', 'color' => 'teal'],
-                ['id' => 'data-infografis', 'label' => 'INFOGRAFIS DESA PAYUNGAGUNG', 'icon' => 'mdi-chart-pie', 'color' => 'rose'],
+                ['id' => 'data-loker', 'label' => 'INFORMASI LOWONGAN PEKERJAAN', 'icon' => 'mdi-chart-pie', 'color' => 'rose'],
             ];
         @endphp
 
