@@ -72,10 +72,11 @@
         </button>
     </div>
     <!-- Column 2: Description -->
-    <div class="flex flex-col justify-center items-center md:items-start px-6 py-6">
-    <h2 class="font-bold text-2xl mb-2">Apa itu Rumah DataKu?</h2>
-    <p class="text-base md:text-lg text-gray-700 leading-relaxed max-w-md text-center md:text-left">
-        <span class="text-lg md:text-xl font-semibold">Rumah DataKu</span> adalah pusat data dan intervensi permasalahan kependudukan di tingkat mikro, seperti di kampung KB, desa, dan kelurahan.
+    <!-- Column 2: Description -->
+<div class="flex flex-col justify-center items-center md:items-start px-6 py-6">
+    <h2 class="font-bold text-3xl md:text-4xl mb-4">Apa itu Rumah DataKu?</h2>
+    <p class="text-lg md:text-xl text-gray-700 leading-relaxed max-w-md text-center md:text-left">
+        <span class="text-xl md:text-2xl font-semibold">Rumah DataKu</span> adalah pusat data dan intervensi permasalahan kependudukan di tingkat mikro, seperti di kampung KB, desa, dan kelurahan.
     </p>
 </div>
     <!-- Column 3: Logo -->
