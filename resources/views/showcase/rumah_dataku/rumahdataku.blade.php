@@ -3,7 +3,11 @@
 @section('content')
 
 <!-- Header Section -->
-<section class="content mt-20 mx-auto py-8 px-4 md:px-20 grid grid-cols-1 md:grid-cols-2 gap-8 items-center ">
+<section class="relative  mt-20 mx-auto py-8 px-4 md:px-20 grid grid-cols-1 md:grid-cols-2 gap-8 items-center overflow-hidden">
+    <!-- Background Pattern Custom -->
+    <div class="absolute inset-0 -z-10">
+        <div class="container_custom"></div>
+    </div>
     <!-- Left: Text -->
     <div class="max-w-6xl mx-auto">
         <h1 class="text-4xl md:text-[50px] leading-tight tracking-[-0.05em] font-normal">
@@ -33,7 +37,7 @@
             </div>
         </div>
 
-        <p class="mt-6 text-base md:text-[24px] leading-relaxed tracking-[-0.05em] text-[#898989] font-medium max-w-lg">
+        <p class="mt-8 text-base md:text-[24px] leading-relaxed tracking-[-0.05em] text-[#898989] font-medium max-w-lg">
             Desa Payungagung, Kecamatan Panumbangan, Kabupaten Ciamis, Jawa Barat
         </p>
     </div>
@@ -60,11 +64,11 @@
     </div>
     <!-- Column 2: Description -->
     <div class="flex flex-col justify-center items-center md:items-start px-6 py-6">
-        <h2 class="font-bold text-lg mb-1">Apa itu Rumah DataKu?</h2>
-        <p class="text-sm text-gray-700 leading-relaxed max-w-md text-center md:text-left">
-            <span class="font-semibold">Rumah DataKu</span> adalah pusat data dan intervensi permasalahan kependudukan di tingkat mikro, seperti di kampung KB, desa, dan kelurahan.
-        </p>
-    </div>
+    <h2 class="font-bold text-2xl mb-2">Apa itu Rumah DataKu?</h2>
+    <p class="text-base md:text-lg text-gray-700 leading-relaxed max-w-md text-center md:text-left">
+        <span class="text-lg md:text-xl font-semibold">Rumah DataKu</span> adalah pusat data dan intervensi permasalahan kependudukan di tingkat mikro, seperti di kampung KB, desa, dan kelurahan.
+    </p>
+</div>
     <!-- Column 3: Logo -->
     <div class="flex items-center justify-center px-6 py-6">
         <img src="{{ asset('assets/img/rumah-dataku.png') }}" alt="Logo Rumah DataKu" class="w-full h-64 object-contain md:w-50 transition-transform duration-[2000ms] transform p-14 hover:scale-110 cursor-pointer">

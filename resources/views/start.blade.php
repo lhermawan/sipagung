@@ -48,7 +48,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
     <link rel="stylesheet" href="{{ asset('build/assets/app-92df87f6.css') }}">
     <script type="module" src="{{ asset('build/assets/app-e2dbf804.js') }}"></script>
-
+<script src="https://unpkg.com/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
 </head>
 
 <style>
@@ -237,16 +237,18 @@
     <section class="container mx-auto py-10 mt-10 md:mt-20 space-y-7 md:space-y-14">
         <div class="flex flex-col md:flex-row mx-10 md:mx-20 gap-7 items-center">
             <!-- Carousel -->
-            <div
-                class="w-full md:w-7/12 relative overflow-hidden md:h-80 rounded-2xl border border-gray-200 shadow-lg">
-                <div class="carousel-wrapper flex transition-transform duration-500 ease-in-out">
 
-                    <img src="./assets/img/UPACARA.jpg" alt="" class="object-cover w-full h-[inherit]">
+<!-- Infografis Section -->
+<div class="w-full md:w-7/12 relative overflow-hidden md:h-80 rounded-2xl border border-gray-200 shadow-lg">
+    <img
+        src="./assets/img/Infografis_Payungagung.jpg"
+        alt="Infografis Payungagung"
+        class="object-contain w-full h-full cursor-zoom-in zoomable"
+        data-zoomable
+    >
+</div>
 
-                    <img src="./assets/img/FOTBAR-VOLI.jpg" alt="" class="object-cover w-full h-[inherit]">
-                    <img src="./assets/img/pose-nasional.jpg" alt="" class="object-cover w-full h-[inherit]">
-                </div>
-            </div>
+
             <div class="w-full md:w-5/12">
                 <a href="{{ route('rumahdataku') }}">
                     <div
@@ -735,8 +737,32 @@
             carouselLapak.style.transform = `translateX(-${currentIndexLapak * 100}%)`;
         }, 5000);
     </script>
+<script>
+    function openModal(imageSrc) {
+        const modal = document.getElementById('imageModal');
+        const image = document.getElementById('modalImage');
+        image.src = imageSrc;
+        modal.classList.remove('hidden');
+    }
 
+    function closeModal() {
+        document.getElementById('imageModal').classList.add('hidden');
+    }
 
+    // Optional: ESC key support
+    document.addEventListener('keydown', function (e) {
+        if (e.key === "Escape") {
+            closeModal();
+        }
+    });
+</script>
+<script>
+    mediumZoom('.zoomable', {
+        background: 'rgba(0, 0, 0, 0.8)',
+        margin: 24,
+        scrollOffset: 40
+    });
+</script>
     <script>
         function openLayananMandiri() {
             document.getElementById('layananMandiriModal').classList.remove('hidden');
