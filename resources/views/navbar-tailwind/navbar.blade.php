@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="shortcut icon" href="{{URL::to('assets/img/mountain.png') }}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css" rel="stylesheet">
-
+<script src="https://unpkg.com/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.3.67/css/materialdesignicons.min.css" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -154,7 +154,7 @@
             id="bg-navbar">
             <div class="flex flex-wrap justify-between items-center mx-10">
                 <div class="flex items-center">
-                    <a href="#" class="nav-link"><img src="/assets/img/mountain.png" class="h-7"
+                    <a href="#" class="nav-link"><img src="{{ asset('/assets/img/mountain.png') }}" class="h-7"
                             alt="" /></a>
                     <a href="#" class="nav-link ml-3 text-xl text-gray-800 font-medium">SI<b>PAGUNG</b></a>
                 </div>

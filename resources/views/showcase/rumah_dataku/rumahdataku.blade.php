@@ -43,14 +43,23 @@
     </div>
 
     <!-- Right: Image with fade animation and left shift -->
-    <div class="flex justify-center md:justify-end md:-ml-16 px-4 md:px-0">
-        <img src="{{ asset('images/illustration.png') }}"
-            alt="Ilustrasi Rumah DataKu"
-            class="w-full max-w-lg transition-transform duration-[2000ms] transform p-14 hover:scale-110 cursor-pointer"
-        >
+    <div class="flex justify-center md:justify-end md:-ml-16 px-4 md:px-0 ">
+        <img
+    src="{{ asset('assets/img/Infografis_Payungagung.jpg') }}"
+    alt="Infografis Payungagung"
+    class="object-contain cursor-zoom-in zoomable"
+    data-zoomable
+    style="max-width: 70%; height: auto;"
+>
     </div>
 </section>
-
+<script>
+    mediumZoom('.zoomable', {
+        background: 'rgba(0, 0, 0, 0.8)',
+        margin: 24,
+        scrollOffset: 40
+    });
+</script>
 <!-- Informasi Section -->
 <section class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-200 border-t border-gray-200">
     <!-- Column 1: Mulai Button -->
